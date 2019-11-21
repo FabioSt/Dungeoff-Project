@@ -113,6 +113,7 @@ class GameScene: SKScene {
             lightNode.run(.falloff(to: 1, duration: 0.2))
             lightNode.falloff = 1
             lightNode.lightColor = #colorLiteral(red: 0.7681630254, green: 0.9664419293, blue: 1, alpha: 1)
+            backgroundColor = SKColor.init(red: 0.1647, green: 0.0745, blue: 0.1961, alpha: 1.0)
         }
     }
     
@@ -353,6 +354,7 @@ class GameScene: SKScene {
             let heartContainers = SKSpriteNode(imageNamed: "heart-empty")
             heartContainers.size = CGSize(width: 30, height: 30)
             heartContainers.position = CGPoint(x: -180 + positionAdd, y: 325)
+            heartContainers.zPosition = 99
             positionAdd += 40.0
             camera!.addChild(heartContainers)
         }
@@ -529,7 +531,7 @@ class GameScene: SKScene {
         
         //        menuMusic(father: self)
         
-        backgroundColor = SKColor.init(red: 0.1647, green: 0.0745, blue: 0.1961, alpha: 1.0)
+        backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
         addSwipe()
         camera!.setScale(1.2)
         
