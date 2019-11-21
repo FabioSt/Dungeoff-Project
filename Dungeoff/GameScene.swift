@@ -64,8 +64,10 @@ class GameScene: SKScene {
         }
         
         // DOOR 1 TELEPORT
-        if heroNode.position == rockMap.centerOfTile(atColumn: 16, row: 17) {
-            heroNode.position = rockMap.centerOfTile(atColumn: 16, row: 22)
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).y.rounded() {
+            let destination = rockMap.centerOfTile(atColumn: 16, row: 22)
+//            heroNode.position = destination
+            heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
         }
     }
     
