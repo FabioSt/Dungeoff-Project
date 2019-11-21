@@ -18,7 +18,7 @@ func dashSound() {
    }
 
 func hitSound() {
-       if let soundURL = Bundle.main.url(forResource: "hit", withExtension: "wav") {
+       if let soundURL = Bundle.main.url(forResource: "pain", withExtension: "wav") {
            var mySound: SystemSoundID = 0
            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
            AudioServicesPlaySystemSound(mySound);
@@ -26,7 +26,7 @@ func hitSound() {
    }
 
 func slashSound() {
-    if let soundURL = Bundle.main.url(forResource: "Slash", withExtension: "mp3") {
+    if let soundURL = Bundle.main.url(forResource: "hit", withExtension: "wav") {
 //        by Mike Koenig
         var mySound: SystemSoundID = 0
         AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
