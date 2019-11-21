@@ -23,6 +23,7 @@
 		1DD579D32371D34D002BDA4C /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1DD579D12371D34D002BDA4C /* TileSet.sks */; };
 		1DD579D42371D34D002BDA4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD579D22371D34D002BDA4C /* Assets.xcassets */; };
 		1DD579D62372ED54002BDA4C /* Map.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1DD579D52372ED54002BDA4C /* Map.sks */; };
+		4E5E566F238737D40045CD94 /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E566E238737D40045CD94 /* ShopView.swift */; };
 		4E901AC8238547FF00048FBC /* Slash.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4E901AC7238547FF00048FBC /* Slash.mp3 */; };
 		4EE07D0F237F0C9D00027046 /* MyActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4EE07D0E237F0C9D00027046 /* MyActions.sks */; };
 		E7D309CD2382EABC00FA070A /* CharacterClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D309CB2382E53F00FA070A /* CharacterClass.swift */; };
@@ -47,6 +48,7 @@
 		1DD579D12371D34D002BDA4C /* TileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSet.sks; sourceTree = "<group>"; };
 		1DD579D22371D34D002BDA4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DD579D52372ED54002BDA4C /* Map.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Map.sks; sourceTree = "<group>"; };
+		4E5E566E238737D40045CD94 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		4E901AC7238547FF00048FBC /* Slash.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Slash.mp3; sourceTree = "<group>"; };
 		4EE07D0E237F0C9D00027046 /* MyActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyActions.sks; sourceTree = "<group>"; };
 		E7D309CB2382E53F00FA070A /* CharacterClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterClass.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				1DD579BF2371BB11002BDA4C /* GameViewController.swift */,
 				1DB6D7F42382D93800D13996 /* MainMenu.swift */,
 				1DD579C12371BB11002BDA4C /* Main.storyboard */,
+				4E5E566E238737D40045CD94 /* ShopView.swift */,
 				1DD579C42371BB13002BDA4C /* Assets.xcassets */,
 				1DD579C62371BB13002BDA4C /* LaunchScreen.storyboard */,
 				1DA0F40F2383EBA600CA451D /* Savior4.ttf */,
@@ -197,6 +200,7 @@
 			files = (
 				1DB6D7F52382D93800D13996 /* MainMenu.swift in Sources */,
 				1DD579BE2371BB11002BDA4C /* GameScene.swift in Sources */,
+				4E5E566F238737D40045CD94 /* ShopView.swift in Sources */,
 				1DD579C02371BB11002BDA4C /* GameViewController.swift in Sources */,
 				1DD579B82371BB11002BDA4C /* AppDelegate.swift in Sources */,
 				1DB6D7F32382D76300D13996 /* Sounds.swift in Sources */,
