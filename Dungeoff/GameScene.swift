@@ -110,9 +110,13 @@ class GameScene: SKScene {
         if let location = touches.first?.location(in: self) {
             nodeTapped(node: self.atPoint(location))
         }
+        
+
+
     }
     
     func nodeTapped(node : SKNode) {
+        
         if node === self.skeletonNode {
             if isInRange(protagoNode: heroNode, enemyNode: skeletonNode) {
                 checkHP()
@@ -637,9 +641,10 @@ class GameScene: SKScene {
         tutorial()
         
         shop = SKSpriteNode(imageNamed: "shop")
-        shop.position = .init(x: self.frame.maxX - self.frame.maxX/10, y: self.frame.maxY - self.frame.maxY/10)
+        shop.position = .init(x: 180, y: 370)
         shop.alpha = 0
-        self.addChild(shop)
+        shop.zPosition = 1000
+        camera!.addChild(shop)
         
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchFrom))
         view.addGestureRecognizer(pinchGesture)
@@ -692,9 +697,9 @@ class GameScene: SKScene {
         label.text = "\(coinCounter)"
         jumpingCoin(node: coinNode)
         if coinCounter % 100 == 0 {
-            run(.playSoundFileNamed("smb_1-up.wav", waitForCompletion: false))
+            run(.playSoundFileNamed("soul.wav", waitForCompletion: false))
         } else {
-            run(.playSoundFileNamed("smb_coin.wav", waitForCompletion: false))
+            run(.playSoundFileNamed("soul.wav", waitForCompletion: false))
         }
     }
     
