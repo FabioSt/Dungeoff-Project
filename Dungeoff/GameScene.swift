@@ -69,6 +69,13 @@ class GameScene: SKScene {
 //            heroNode.position = destination
             heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
         }
+        
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 16, row: 16)
+        //            heroNode.position = destination
+                    heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
+                }
+        
     }
     
     override func update(_ currentTime: CFTimeInterval)
@@ -155,8 +162,8 @@ class GameScene: SKScene {
     
     func buyDoors() {
            
-           let columns = [16]
-           let rows = [17]
+           let columns = [16, 16]
+           let rows = [17, 21]
         walkableTiles.append("WA2-door")
         
                 for i in 0 ... columns.count-1  {
