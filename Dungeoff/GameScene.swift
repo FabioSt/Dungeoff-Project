@@ -115,8 +115,8 @@ class GameScene: SKScene {
     
     func buyLights() {
         
-        let columns = [16, 12]
-        let rows = [19, 19]
+        let columns = [15, 17]
+        let rows = [17, 17]
         
         for i in 0 ... columns.count-1  {
             let torchNode = SKSpriteNode(imageNamed: "torch00")
@@ -252,7 +252,7 @@ class GameScene: SKScene {
         // Load the first frame as initialization
         heroNode.size = CGSize(width: 64, height: 64)
         heroNode.texture?.filteringMode = .nearest
-        heroNode.position = rockMap.centerOfTile(atColumn: currentColumn , row: currentRow)
+        heroNode.position = rockMap.centerOfTile(atColumn: 16 , row: 14)
         heroNode.lightingBitMask = 0b0001
         
         // Change the frame per 0.2 sec
