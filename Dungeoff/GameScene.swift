@@ -27,6 +27,8 @@ var hitCounter = CGFloat(0)
 
 let lightNode = SKLightNode()
 
+var shopView = ShopView()
+
 var cont = 0 // counter for BUMP action
 var coinCounter:Int = 0
 
@@ -97,6 +99,10 @@ class GameScene: SKScene {
         if tutorialCounter == 4 {
             hintLabel.text = hints[3]
         }
+        
+        if coinCounter > 10 {
+            shop.run(.fadeAlpha(to: 1, duration: 2.5))
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -127,6 +133,17 @@ class GameScene: SKScene {
             lightNode.lightColor = #colorLiteral(red: 0.7681630254, green: 0.9664419293, blue: 1, alpha: 1)
             backgroundColor = SKColor.init(red: 0.1647, green: 0.0745, blue: 0.1961, alpha: 1.0)
         }
+        if node === self.shop {
+            summonShop()
+        }
+    }
+    
+    func summonShop() {
+        shopView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        shopView.frame = view!.frame
+        shopView.backgroundColor = .black
+        self.scene?.view?.addSubview(shopView)
+        shopView.reloadData()
     }
     
     func buyLights() {
@@ -678,10 +695,6 @@ class GameScene: SKScene {
             run(.playSoundFileNamed("smb_1-up.wav", waitForCompletion: false))
         } else {
             run(.playSoundFileNamed("smb_coin.wav", waitForCompletion: false))
-        }
-        
-        if coinCounter == 10 {
-            shop.run(.fadeAlpha(to: 1, duration: 2.5))
         }
     }
     
