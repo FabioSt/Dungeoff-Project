@@ -30,6 +30,8 @@ let lightNode = SKLightNode()
 var cont = 0 // counter for BUMP action
 var coinCounter:Int = 0
 
+var heartContainers = SKSpriteNode(imageNamed: "3of3")
+
 class GameScene: SKScene {
     
     var label = SKLabelNode(fontNamed: "Savior4")
@@ -44,7 +46,7 @@ class GameScene: SKScene {
     let motion = CMMotionManager()
     var timer = Timer()
     
-    let walkableTiles = ["A1", "A2", "A3", "B1", "B2", "B3","C1","C2","C3"]
+    var walkableTiles = ["A1", "A2", "A3", "B1", "B2", "B3","C1","C2","C3"]
     
     func checkPositions() {
         if comparePositionRound(position1: heroNode.position, position2: skeletonNode.position) {
@@ -59,6 +61,11 @@ class GameScene: SKScene {
                 print(coinCounter)
                 label.text = "\(coinCounter)"
             }
+        }
+        
+        // DOOR 1 TELEPORT
+        if heroNode.position == rockMap.centerOfTile(atColumn: 16, row: 17) {
+            heroNode.position = rockMap.centerOfTile(atColumn: 16, row: 22)
         }
     }
     
@@ -143,6 +150,25 @@ class GameScene: SKScene {
         }
         lightNode.isEnabled = false
     }
+    
+    func buyDoors() {
+           
+           let columns = [16]
+           let rows = [17]
+        walkableTiles.append("WA2-door")
+        
+                for i in 0 ... columns.count-1  {
+               let doorNode = SKSpriteNode(imageNamed: "door")
+               
+               doorNode.position = rockMap.centerOfTile(atColumn: columns[i], row: rows[i])
+               doorNode.size = CGSize(width: 64, height: 64)
+               doorNode.texture?.filteringMode = .nearest
+               doorNode.lightingBitMask = 0b0001
+               
+               self.addChild(doorNode)
+           }
+          
+       }
     
     func isInRange(protagoNode: SKNode, enemyNode: SKNode) -> Bool {
         let heroX = protagoNode.position.x
@@ -293,7 +319,7 @@ class GameScene: SKScene {
         
         //        let move1 = SKAction.move(to: (rockMap.centerOfTile(atColumn: 13, row: 13)), duration: 0.2)
         let waitAction = SKAction.wait(forDuration: 1.5)
-        skeletonNode.run(SKAction.repeatForever(SKAction.sequence([chaseHero(hunterNode: skeletonNode, huntedNode: heroNode),waitAction])))
+//        skeletonNode.run(SKAction.repeatForever(SKAction.sequence([chaseHero(hunterNode: skeletonNode, huntedNode: heroNode),waitAction])))
         
     }
     
@@ -342,33 +368,50 @@ class GameScene: SKScene {
         
     }
     
-    func hearts(health:Int) {
-        
-        let i:Int = health
-        var positionAdd:CGFloat = 10.0
-        for _ in 0 ... i-1 {
-            let heartContainers = SKSpriteNode(imageNamed: "heart-empty")
-            heartContainers.size = CGSize(width: 30, height: 30)
-            heartContainers.position = CGPoint(x: -180 + positionAdd, y: 325)
-            heartContainers.zPosition = 99
-            positionAdd += 40.0
-            camera!.addChild(heartContainers)
-        }
+//    func hearts(health:Int) {
+//
+//        let i:Int = health
+//        var positionAdd:CGFloat = 10.0
+//        for _ in 0 ... i-1 {
+//            let heartContainers = SKSpriteNode(imageNamed: "heart-empty")
+//            heartContainers.size = CGSize(width: 30, height: 30)
+//            heartContainers.position = CGPoint(x: -180 + positionAdd, y: 325)
+//            heartContainers.zPosition = 99
+//            positionAdd += 40.0
+//            camera!.addChild(heartContainers)
+//        }
+//    }
+//
+//    func heartsFull(health:Int) {
+//
+//        let i:Int = health
+//        var positionAdd:CGFloat = 10.0
+//
+//        for _ in 0 ... i-1 {
+//            let fullHearts = SKSpriteNode(imageNamed: "heart-full")
+//            fullHearts.size = CGSize(width: 30, height: 30)
+//            fullHearts.position = CGPoint(x: -180 + positionAdd, y: 325)
+//            fullHearts.zPosition = 100
+//            positionAdd += 40.0
+//            camera!.addChild(fullHearts)
+//        }
+//    }
+    func hearts() {
+         heartContainers.size = CGSize(width: 118, height: 30)
+        heartContainers.position = CGPoint(x: -134, y: 325)
+         heartContainers.zPosition = 100
+     camera!.addChild(heartContainers)
     }
     
-    func heartsDamages(health:Int) {
-        
-        let i:Int = health
-        var positionAdd:CGFloat = 10.0
-        for _ in 0 ... i-1 {
-            let fullHearts = SKSpriteNode(imageNamed: "heart-full")
-            fullHearts.size = CGSize(width: 30, height: 30)
-            fullHearts.position = CGPoint(x: -180 + positionAdd, y: 325)
-            positionAdd += 40.0
-            camera!.addChild(fullHearts)
-        }
-    }
-    
+    func heartsDown() {
+           if (heroNode.health == 3) {
+               heartContainers.texture = SKTexture(imageNamed: "3of3")
+           } else if (heroNode.health == 2) {
+               heartContainers.texture = SKTexture(imageNamed: "2of3")
+           } else if (heroNode.health == 1) {
+               heartContainers.texture = SKTexture(imageNamed: "1of3")
+           }
+       }
     
     func attack(targetPosition: CGPoint) {
         let newPosition = CGPoint.init(x: (Int.random(in: -3...3)*Int(rockMap.tileSize.width)) + Int(targetPosition.x), y: (Int.random(in: -6...6) * Int(rockMap.tileSize.height)) + Int(targetPosition.y))
@@ -391,6 +434,7 @@ class GameScene: SKScene {
             heroNode.health -= 1
 //            heartsDamages(health: heroNode.health)
             hitSound()
+            heartsDown()
             heroNode.die()
             print(heroNode.health)
             if (heroNode.died == true){
@@ -462,6 +506,7 @@ class GameScene: SKScene {
             if (onLand(characterPosition: newPosition, map: rockMap) == false){return}
             heroNode.run(.move(by: .init(dx: 0, dy: -64), duration: 0.2))
             heroRunDown()
+            buyDoors()
             dashSound()
             currentRow -= 1
             tutorialCounter+=1
@@ -489,12 +534,7 @@ class GameScene: SKScene {
         return counter
     }
     
-    
-    func doorSpawn(characterPosition: CGPoint, map: SKTileMapNode) {
-        //        if map.tileSet.name ==  {
-        
-        //        }
-    }
+
     
     func comparePositionRound(position1: CGPoint, position2: CGPoint) -> Bool {
         if position1.x.rounded() == position2.x.rounded() && position1.y.rounded() == position2.y.rounded() {
@@ -532,6 +572,8 @@ class GameScene: SKScene {
         addSwipe()
         camera!.setScale(1.2)
         
+        heartContainers = SKSpriteNode(imageNamed: "3of3")
+        
         // Function for apply PixelArt shit to the tiles
         for tileGroup in tileSet.tileGroups {
             for tileRule in tileGroup.rules {
@@ -565,8 +607,7 @@ class GameScene: SKScene {
         heroSpawn()
         coinSpawn()
         skeletonSpawn()
-        hearts(health: heroNode.maxHealth)
-        heartsDamages(health: 3)
+        hearts()
         tutorial()
         
         shop = SKSpriteNode(imageNamed: "shop")
