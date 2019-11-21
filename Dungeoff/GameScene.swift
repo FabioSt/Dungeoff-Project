@@ -393,7 +393,7 @@ class GameScene: SKScene {
             //        node.run(.move(to: bounceDestination, duration: 0.1))
             node.run(.moveBy(x: bounceDestination.x, y: bounceDestination.y, duration: 0.1))
             heroNode.health -= 1
-            heartsDamages(health: heroNode.health)
+//            heartsDamages(health: heroNode.health)
             hitSound()
             heroNode.die()
             print(heroNode.health)
@@ -520,6 +520,7 @@ class GameScene: SKScene {
         removeAllChildren()
         removeAllActions()
         
+        hitCounter = CGFloat(-1)
         overImage.size = CGSize(width: 320, height: 320)
         addChild(overImage)
         view?.scene?.isPaused = false
