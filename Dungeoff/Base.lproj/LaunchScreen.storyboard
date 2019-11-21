@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="teamd6" translatesAutoresizingMaskIntoConstraints="NO" id="HGr-E8-DXl">
+                                <rect key="frame" x="103" y="276" width="208" height="213"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="d6" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFu-cD-BF9">
+                                <rect key="frame" x="231" y="497" width="42" height="47"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryu-gP-BaB">
+                                <rect key="frame" x="150" y="497" width="98" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="YCu-S2-M0N"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.14245462417602539" green="0.10244167596101761" blue="0.35912317037582397" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hFu-cD-BF9" secondAttribute="trailing" constant="141" id="2Fi-RQ-Kgk"/>
+                            <constraint firstItem="hFu-cD-BF9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="231" id="317-Iq-Zfj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ryu-gP-BaB" secondAttribute="bottom" constant="318" id="9bk-Fd-34c"/>
+                            <constraint firstItem="Ryu-gP-BaB" firstAttribute="top" secondItem="HGr-E8-DXl" secondAttribute="bottom" constant="8" id="FiE-Op-4V2"/>
+                            <constraint firstItem="Ryu-gP-BaB" firstAttribute="firstBaseline" secondItem="hFu-cD-BF9" secondAttribute="firstBaseline" id="Jy9-OX-4u4"/>
+                            <constraint firstItem="HGr-E8-DXl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="103" id="VSD-jW-WMj"/>
+                            <constraint firstItem="Ryu-gP-BaB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="150" id="Vyz-Wh-Ejk"/>
+                            <constraint firstItem="HGr-E8-DXl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bd5-QA-Z7O"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ryu-gP-BaB" secondAttribute="trailing" constant="166" id="bvp-bl-34l"/>
+                            <constraint firstItem="HGr-E8-DXl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="232" id="nZV-WL-zeK"/>
+                            <constraint firstItem="Ryu-gP-BaB" firstAttribute="baseline" secondItem="hFu-cD-BF9" secondAttribute="baseline" id="qvK-ce-qPB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="teamd6" width="650" height="653"/>
+    </resources>
+</document>

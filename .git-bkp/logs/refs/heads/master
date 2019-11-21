@@ -1,0 +1,32 @@
+0000000000000000000000000000000000000000 b921336315b1260404257819f104aaea0a6bcf4e david florczak <florczakdavid@gmail.com> 1573827017 +0100	clone: from https://github.com/FabioSt/Dungeoff.git
+b921336315b1260404257819f104aaea0a6bcf4e 0d6a4dc41c8a10d468cea6d7a86a1e48aca6f990 david florczak <florczakdavid@gmail.com> 1573827095 +0100	commit: cazzooooooo
+0d6a4dc41c8a10d468cea6d7a86a1e48aca6f990 753c5e1d8426f0fcbd80d71fa74ef1e0d7d9a842 david florczak <florczakdavid@gmail.com> 1573830183 +0100	commit (merge): Merge remote-tracking branch 'refs/remotes/origin/master'
+753c5e1d8426f0fcbd80d71fa74ef1e0d7d9a842 4e1a0b9edcae7e6c5cc107b811a8e611ba09c1d2 david florczak <florczakdavid@gmail.com> 1573830825 +0100	commit: I committed
+4e1a0b9edcae7e6c5cc107b811a8e611ba09c1d2 15a61293c8a11a20021d5fba5003f1a9bc0a4bd4 david florczak <florczakdavid@gmail.com> 1573836903 +0100	commit: movement minded to the map
+15a61293c8a11a20021d5fba5003f1a9bc0a4bd4 41e9186c59437ad36bfd02f1632dfaa132d54b47 david florczak <florczakdavid@gmail.com> 1574074267 +0100	commit (merge): Merge remote-tracking branch 'refs/remotes/origin/master'
+41e9186c59437ad36bfd02f1632dfaa132d54b47 26f7892831f17d335a7a6744bceed3289c171b4a david florczak <florczakdavid@gmail.com> 1574080150 +0100
+26f7892831f17d335a7a6744bceed3289c171b4a f67bab3cbfa70a01112f535791a815df8e03a6ff david florczak <florczakdavid@gmail.com> 1574083290 +0100
+f67bab3cbfa70a01112f535791a815df8e03a6ff 6594156f5d7d658d1edcbe2b01af17c4baf940ab david florczak <florczakdavid@gmail.com> 1574083568 +0100	commit: fixed float value comparison
+6594156f5d7d658d1edcbe2b01af17c4baf940ab 6b0acae5d09a5607018f4f4b2c4107cfea9f0ba5 david florczak <florczakdavid@gmail.com> 1574085052 +0100	commit: fixed bumping direction and coin counting
+6b0acae5d09a5607018f4f4b2c4107cfea9f0ba5 f19b3aecd3c8868fb5ff943f964e5fcf6839cb70 david florczak <florczakdavid@gmail.com> 1574089853 +0100
+f19b3aecd3c8868fb5ff943f964e5fcf6839cb70 a7ad714dd5330ce2a153559388582cec568b056d david florczak <florczakdavid@gmail.com> 1574090375 +0100	commit: attacking by swiping
+a7ad714dd5330ce2a153559388582cec568b056d 8a21cb05f69e4fad18a93c90629aec5db1c58588 david florczak <florczakdavid@gmail.com> 1574090976 +0100
+8a21cb05f69e4fad18a93c90629aec5db1c58588 7f7574972fd56b201b88512c4531ff23bf1f45f6 david florczak <florczakdavid@gmail.com> 1574157915 +0100
+7f7574972fd56b201b88512c4531ff23bf1f45f6 3da914d9772b4e96a2252deb3c30f60c24e45377 david florczak <florczakdavid@gmail.com> 1574170190 +0100
+3da914d9772b4e96a2252deb3c30f60c24e45377 012417b04e0e0b6f25abe12ab72a8a617cbb6d25 david florczak <florczakdavid@gmail.com> 1574243583 +0100
+012417b04e0e0b6f25abe12ab72a8a617cbb6d25 931571002de8a08cbe09c8d5b1a34c0c65edb81a david florczak <florczakdavid@gmail.com> 1574246320 +0100	commit: Added Attack action within range of the hero
+931571002de8a08cbe09c8d5b1a34c0c65edb81a 04b8ca930797880397d8c51769afb0adc5ecfe75 david florczak <florczakdavid@gmail.com> 1574246999 +0100	commit: life bar follows the skeleton
+04b8ca930797880397d8c51769afb0adc5ecfe75 af9fd86086584dfa11b9f8847c2e5936fd1e90eb david florczak <florczakdavid@gmail.com> 1574326352 +0100
+af9fd86086584dfa11b9f8847c2e5936fd1e90eb f35491ac7371a5cb83532d3e9e2f9f0f9952df99 david florczak <florczakdavid@gmail.com> 1574335969 +0100	commit: added light effect and attempt to chase
+f35491ac7371a5cb83532d3e9e2f9f0f9952df99 b8d555b5392de25e559fe911f0c6c40f46c75415 david florczak <florczakdavid@gmail.com> 1574346823 +0100
+b8d555b5392de25e559fe911f0c6c40f46c75415 a415f338bf782af876d661ba84bcb081efd14470 david florczak <florczakdavid@gmail.com> 1574350344 +0100
+a415f338bf782af876d661ba84bcb081efd14470 e7f98343a264b3c5f812f18fe3720f9db79410c3 david florczak <florczakdavid@gmail.com> 1574351001 +0100	commit: le cazzo del shaking di merda
+e7f98343a264b3c5f812f18fe3720f9db79410c3 732e2c4c5a4dcfa2069c6200d70e99cbf5af2569 david florczak <florczakdavid@gmail.com> 1574351254 +0100	commit: di shaking del cazzo
+732e2c4c5a4dcfa2069c6200d70e99cbf5af2569 daa37353673adebc6db12116c275745c87b6b395 david florczak <florczakdavid@gmail.com> 1574351312 +0100	commit (merge): Merge remote-tracking branch 'refs/remotes/origin/master'
+daa37353673adebc6db12116c275745c87b6b395 6a9a5785e0f2a51fd22b5a99c7accf53e2be844c david florczak <florczakdavid@gmail.com> 1574351375 +0100	commit: ok
+6a9a5785e0f2a51fd22b5a99c7accf53e2be844c adb00d9342bed4b53705c31a790c01996bbf8bf3 david florczak <florczakdavid@gmail.com> 1574353164 +0100	commit: restore
+adb00d9342bed4b53705c31a790c01996bbf8bf3 6d8794c4fc83b1db4571f8cfd38585149c8be6cd david florczak <florczakdavid@gmail.com> 1574353268 +0100	commit: restore
+6d8794c4fc83b1db4571f8cfd38585149c8be6cd 8677b4a70003da0a12b412253bd37fcb91ad022d david florczak <florczakdavid@gmail.com> 1574353648 +0100	commit: debug
+8677b4a70003da0a12b412253bd37fcb91ad022d 937923781bd80dc3f30b26a67ef0302342eef9cf david florczak <florczakdavid@gmail.com> 1574355233 +0100	commit: mkbhygt
+937923781bd80dc3f30b26a67ef0302342eef9cf 4b1ee5f855ee6567c6c50e6193182e852f8f2745 david florczak <florczakdavid@gmail.com> 1574355283 +0100	commit: mkbhygt
+4b1ee5f855ee6567c6c50e6193182e852f8f2745 56d0e9dfdf58783e47303376580a26360b77459c Fabio Staiano <fabio.staiano@gmail.com> 1574360139 +0100	commit: good
