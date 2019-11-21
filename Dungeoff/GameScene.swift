@@ -75,10 +75,6 @@ class GameScene: SKScene {
         camera?.position = heroNode.position
         checkPositions()
         label.text = "\(coinCounter)"
-        if lifeBar.size.width == .zero {
-            lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.15))
-        }
         
         if skeletonNode.alpha == 0 { skeletonNode.removeFromParent() }
         
