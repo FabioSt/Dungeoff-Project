@@ -42,6 +42,7 @@ class GameScene: SKScene {
     
     var label = SKLabelNode(fontNamed: "Savior4")
     var esclamation = SKLabelNode(fontNamed: "Savior4")
+    let dragonNode = SKSpriteNode(imageNamed:"dragon01")
     let skeletonNode = SKSpriteNode(imageNamed: "skeleton1")
     var lifeBar = SKSpriteNode(texture: nil)
     let cameraNode = SKCameraNode()
@@ -439,6 +440,19 @@ class GameScene: SKScene {
         self.addChild(heroNode)
     }
     
+    func dragonSpawn(){
+    let dragon1 = SKTexture.init(imageNamed:"dragon00")
+    let dragon2 = SKTexture.init(imageNamed:"dragon01")
+    let dragFrames: [SKTexture] = [dragon1, dragon2]
+    dragon1.filteringMode = .nearest
+    dragon2.filteringMode = .nearest
+    dragonNode.position = rockMap.centerOfTile(atColumn: 25, row: 40)
+    dragonNode.size = CGSize(width: 512, height: 512)
+    dragonNode.zPosition = 1001
+    self.addChild(dragonNode)
+    }
+    
+    
     func skeletonSpawn(){
         
         // 4 skel frames
@@ -505,14 +519,14 @@ class GameScene: SKScene {
         coinNode.position = CGPoint(x: -170, y: 370)
         coinNode.size = CGSize(width: 40, height: 40)
         coinNode.texture?.filteringMode = .nearest
-        coinNode.zPosition = 99
+        coinNode.zPosition = 1002
         
         
         label.position = CGPoint(x: -140, y: 357)
         label.horizontalAlignmentMode = .left
         label.fontColor = SKColor.white
         label.fontSize = 55
-        label.zPosition = 99
+        label.zPosition = 1002
         
         camera!.addChild(label)
         camera!.addChild(coinNode)
@@ -550,7 +564,7 @@ class GameScene: SKScene {
     func hearts() {
          heartContainers.size = CGSize(width: 118, height: 30)
         heartContainers.position = CGPoint(x: -134, y: 325)
-         heartContainers.zPosition = 100
+         heartContainers.zPosition = 1002
      camera!.addChild(heartContainers)
     }
     
@@ -766,6 +780,7 @@ class GameScene: SKScene {
         heroEsclamation()
         coinSpawn()
         skeletonSpawn()
+        dragonSpawn()
         hearts()
         tutorial()
         
