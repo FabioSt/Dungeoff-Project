@@ -237,21 +237,7 @@ class GameScene: SKScene {
         if hitCounter == skeletonHP {  }
     }
     
-    func heroRun() {
-        // hero frames
-        let herof0 = SKTexture.init(imageNamed: "hero-run1")
-        let herof1 = SKTexture.init(imageNamed: "hero-run2")
-        let herof2 = SKTexture.init(imageNamed: "hero-run3")
-        let heroFrames: [SKTexture] = [herof0, herof1, herof2]
-        
-        herof0.filteringMode = .nearest
-        herof1.filteringMode = .nearest
-        herof2.filteringMode = .nearest
-        
-        // Change the frame per 0.2 sec
-        let animation = SKAction.animate(with: heroFrames, timePerFrame: 0.08)
-        heroNode.run(SKAction.repeat(animation, count: 1))
-    }
+    
     
     func tutorial() {
         
@@ -280,6 +266,38 @@ class GameScene: SKScene {
         esclamation.run(.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 3), .fadeOut(withDuration: 0.2)]))
         heroNode.addChild(esclamation)
         
+    }
+    
+    func heroRun() {
+        // hero frames
+        let herof0 = SKTexture.init(imageNamed: "hero-run1")
+        let herof1 = SKTexture.init(imageNamed: "hero-run2")
+        let herof2 = SKTexture.init(imageNamed: "hero-run3")
+        let heroFrames: [SKTexture] = [herof0, herof1, herof2]
+        
+        herof0.filteringMode = .nearest
+        herof1.filteringMode = .nearest
+        herof2.filteringMode = .nearest
+        
+        // Change the frame per 0.2 sec
+        let animation = SKAction.animate(with: heroFrames, timePerFrame: 0.08)
+        heroNode.run(SKAction.repeat(animation, count: 1))
+    }
+    
+    func heroRunLeft() {
+        // hero frames
+        let herof0 = SKTexture.init(imageNamed: "hero-run1-left")
+        let herof1 = SKTexture.init(imageNamed: "hero-run2-left")
+        let herof2 = SKTexture.init(imageNamed: "hero-run3-left")
+        let heroFrames: [SKTexture] = [herof0, herof1, herof2]
+        
+        herof0.filteringMode = .nearest
+        herof1.filteringMode = .nearest
+        herof2.filteringMode = .nearest
+        
+        // Change the frame per 0.2 sec
+        let animation = SKAction.animate(with: heroFrames, timePerFrame: 0.08)
+        heroNode.run(SKAction.repeat(animation, count: 1))
     }
     
     func heroRunUp() {
@@ -517,7 +535,6 @@ class GameScene: SKScene {
             heroRun()
             dashSound()
             heroNode.run(.move(by: .init(dx: 64, dy: 0), duration: 0.2))
-            heroNode.xScale = 1.0;
             currentColumn += 1
             tutorialCounter+=1
             moveVector = .init(dx: 64, dy: 0)
@@ -527,10 +544,9 @@ class GameScene: SKScene {
         case .left:
             let newPosition = CGPoint(x: heroNode.position.x - 64, y: heroNode.position.y)
             if (onLand(characterPosition: newPosition, map: rockMap) == false){return}
-            heroRun()
+            heroRunLeft()
             dashSound()
             heroNode.run(.move(by: .init(dx: -64, dy: 0), duration: 0.2))
-            heroNode.xScale = -1.0;
             currentColumn -= 1
             tutorialCounter+=1
             moveVector = .init(dx: -64, dy: 0)
