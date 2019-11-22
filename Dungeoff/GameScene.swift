@@ -110,9 +110,6 @@ class GameScene: SKScene {
         if let location = touches.first?.location(in: self) {
             nodeTapped(node: self.atPoint(location))
         }
-        
-
-
     }
     
     func nodeTapped(node : SKNode) {
@@ -138,14 +135,19 @@ class GameScene: SKScene {
             backgroundColor = SKColor.init(red: 0.1647, green: 0.0745, blue: 0.1961, alpha: 1.0)
         }
         if node === self.shop {
-            summonShop()
+            if (view?.subviews.contains(shopView))! {
+                shopView.removeFromSuperview()
+            } else {
+                summonShop()
+            }
         }
     }
     
     func summonShop() {
         shopView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        shopView.frame = view!.frame
-        shopView.backgroundColor = .black
+        let frame = CGRect(x: 30, y: 150, width: (view?.frame.width)!-60, height: (view?.frame.height)!-150)
+        shopView.frame = frame
+        shopView.backgroundColor = .white
         self.scene?.view?.addSubview(shopView)
         shopView.reloadData()
     }
