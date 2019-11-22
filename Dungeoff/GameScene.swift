@@ -27,6 +27,8 @@ var hitCounter = CGFloat(0)
 
 let lightNode = SKLightNode()
 
+var gesture = UISwipeGestureRecognizer()
+
 var shopView = ShopView()
 
 var cont = 0 // counter for BUMP action
@@ -36,14 +38,17 @@ var heartContainers = SKSpriteNode(imageNamed: "3of3")
 
 class GameScene: SKScene {
     
+    var chestChecker = false // check if dragon should be spawn
+    
     var label = SKLabelNode(fontNamed: "Savior4")
+    var esclamation = SKLabelNode(fontNamed: "Savior4")
     let skeletonNode = SKSpriteNode(imageNamed: "skeleton1")
     var lifeBar = SKSpriteNode(texture: nil)
     let cameraNode = SKCameraNode()
     let coinNode = SKSpriteNode(imageNamed: "soul2")
     let heroNode: Character = Character.init()
     let mapImage = UIImageView(frame: UIScreen.main.bounds)
-    let overImage = SKSpriteNode(imageNamed: "gameOver")
+    let overImage = SKSpriteNode(imageNamed: "gameover")
     var shop = SKSpriteNode()
     let motion = CMMotionManager()
     var timer = Timer()
@@ -68,14 +73,73 @@ class GameScene: SKScene {
         // DOOR 1 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).y.rounded() {
             let destination = rockMap.centerOfTile(atColumn: 16, row: 22)
+            gesture.isEnabled = false
 //            heroNode.position = destination
-            heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
+            let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+            heroNode.run(animation, completion: {
+                gesture.isEnabled = true
+            })
         }
         
+        // DOOR 2 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).y.rounded() {
                     let destination = rockMap.centerOfTile(atColumn: 16, row: 16)
         //            heroNode.position = destination
-                    heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
+            gesture.isEnabled = false
+                    //         heroNode.position = destination
+                    let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                    heroNode.run(animation, completion: {
+                    gesture.isEnabled = true
+                })
+            }
+        
+        // DOOR 3 TELEPORT
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 23, row: 24)
+        //            heroNode.position = destination
+            gesture.isEnabled = false
+            //            heroNode.position = destination
+                    let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                    heroNode.run(animation, completion: {
+                    gesture.isEnabled = true
+                    })
+            }
+        
+        // DOOR 3 TELEPORT
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 18, row: 24)
+        //            heroNode.position = destination
+            gesture.isEnabled = false
+                    //            heroNode.position = destination
+                let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                    heroNode.run(animation, completion: {
+                    gesture.isEnabled = true
+                    })
+                }
+        
+        // DOOR 4 TELEPORT
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).y.rounded() {
+                    
+                    let destination = rockMap.centerOfTile(atColumn: 25, row: 32)
+        //            heroNode.position = destination
+                gesture.isEnabled = false
+                    //            heroNode.position = destination
+                    let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                    heroNode.run(animation, completion: {
+                    gesture.isEnabled = true
+                    })
+                }
+        
+        // DOOR 5 TELEPORT
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 25, row: 26)
+        //            heroNode.position = destination
+            gesture.isEnabled = false
+            //            heroNode.position = destination
+                        let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                        heroNode.run(animation, completion: {
+                            gesture.isEnabled = true
+                        })
                 }
         
     }
@@ -185,9 +249,11 @@ class GameScene: SKScene {
     
     func buyDoors() {
            
-           let columns = [16, 16]
-           let rows = [17, 21]
+           let columns = [16, 16, 19, 22, 25, 25]
+              let rows = [17, 21, 24, 24, 27, 31]
         walkableTiles.append("WA2-door")
+        walkableTiles.append("WB1-door")
+        walkableTiles.append("WB2-door")
         
                 for i in 0 ... columns.count-1  {
                let doorNode = SKSpriteNode(imageNamed: "door")
@@ -199,8 +265,18 @@ class GameScene: SKScene {
                
                self.addChild(doorNode)
            }
-          
        }
+    
+    func buyChests() {
+        chestChecker = true
+        let chestNode = SKSpriteNode(imageNamed: "chest")
+        chestNode.position = rockMap.centerOfTile(atColumn: 25, row: 39)
+        chestNode.size = CGSize(width: 64, height: 64)
+        chestNode.texture?.filteringMode = .nearest
+        chestNode.lightingBitMask = 0b0001
+        self.addChild(chestNode)
+    }
+    
     
     func isInRange(protagoNode: SKNode, enemyNode: SKNode) -> Bool {
         let heroX = protagoNode.position.x
@@ -219,10 +295,15 @@ class GameScene: SKScene {
         if lifeBar.size.width == .zero {
             coinCounter += 100
             lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 1))
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.7))
             skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
             //            skeletonNode.removeFromParent()
             return
+        } else if hitCounter >= skeletonHP {
+            coinCounter += 100
+            lifeBar.removeFromParent()
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.7))
+            skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
         }
         hitCounter += 1
         let newSize = CGSize(width: skeletonNode.size.width - skeletonNode.size.width * hitCounter/skeletonHP, height: skeletonNode.size.height/5)
@@ -231,6 +312,37 @@ class GameScene: SKScene {
         print("\(hitCounter/skeletonHP)")
         lifeBar.run(.resize(toWidth: newSize.width, duration: 0.4))
         if hitCounter == skeletonHP {  }
+    }
+    
+    
+    
+    func tutorial() {
+        
+        hintLabel.fontSize = 30
+        hintLabel.fontName = "Savior4"
+        hintLabel.fontColor = SKColor.white
+        hintLabel.horizontalAlignmentMode = .center
+        hintLabel.verticalAlignmentMode = .center
+        hintLabel.zPosition = 99
+        hintLabel.position = CGPoint(x: 0, y: -350)
+        hintLabel.text = hints[2]
+        camera!.addChild(hintLabel)
+        
+    }
+    
+    func heroEsclamation() {
+        
+        esclamation.fontSize = 20
+        esclamation.fontName = "Savior4"
+        esclamation.fontColor = SKColor.white
+        esclamation.horizontalAlignmentMode = .center
+        esclamation.verticalAlignmentMode = .center
+        esclamation.zPosition = 99
+        esclamation.position = CGPoint(x: 0, y: 50)
+        esclamation.text = "Where am I?"
+        esclamation.run(.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 3), .fadeOut(withDuration: 0.2)]))
+        heroNode.addChild(esclamation)
+        
     }
     
     func heroRun() {
@@ -249,18 +361,20 @@ class GameScene: SKScene {
         heroNode.run(SKAction.repeat(animation, count: 1))
     }
     
-    func tutorial() {
+    func heroRunLeft() {
+        // hero frames
+        let herof0 = SKTexture.init(imageNamed: "hero-run1-left")
+        let herof1 = SKTexture.init(imageNamed: "hero-run2-left")
+        let herof2 = SKTexture.init(imageNamed: "hero-run3-left")
+        let heroFrames: [SKTexture] = [herof0, herof1, herof2]
         
-        hintLabel.fontSize = 30
-        hintLabel.fontName = "Savior4"
-        hintLabel.fontColor = SKColor.white
-        hintLabel.horizontalAlignmentMode = .center
-        hintLabel.verticalAlignmentMode = .center
-        hintLabel.zPosition = 99
-        hintLabel.position = CGPoint(x: 0, y: -350)
-        hintLabel.text = hints[2]
-        camera!.addChild(hintLabel)
+        herof0.filteringMode = .nearest
+        herof1.filteringMode = .nearest
+        herof2.filteringMode = .nearest
         
+        // Change the frame per 0.2 sec
+        let animation = SKAction.animate(with: heroFrames, timePerFrame: 0.08)
+        heroNode.run(SKAction.repeat(animation, count: 1))
     }
     
     func heroRunUp() {
@@ -310,6 +424,7 @@ class GameScene: SKScene {
         // Load the first frame as initialization
         heroNode.size = CGSize(width: 64, height: 64)
         heroNode.texture?.filteringMode = .nearest
+        heroNode.zPosition = 1000
         heroNode.position = rockMap.centerOfTile(atColumn: 16 , row: 14)
         heroNode.lightingBitMask = 0b0001
         
@@ -483,7 +598,7 @@ class GameScene: SKScene {
     func addSwipe() {
         let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left, .up, .down]
         for direction in directions {
-            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+            gesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
             gesture.direction = direction
             view?.addGestureRecognizer(gesture)// sel.view
         }
@@ -497,24 +612,26 @@ class GameScene: SKScene {
             if (onLand(characterPosition: newPosition, map: rockMap) == false){return}
             heroRun()
             dashSound()
-            heroNode.run(.move(by: .init(dx: 64, dy: 0), duration: 0.2))
-            heroNode.xScale = 1.0;
-            currentColumn += 1
+            let move = SKAction.move(by: .init(dx:64, dy:0), duration: 0.15)
+            heroNode.run(move, completion:{
+                currentColumn += 1
+                moveVector = .init(dx: 64, dy: 0)
+            } )
             tutorialCounter+=1
-            moveVector = .init(dx: 64, dy: 0)
             print("Gesture direction: Right")
             print("\(currentColumn) , \(currentRow)")
             print(heroNode.position)
         case .left:
             let newPosition = CGPoint(x: heroNode.position.x - 64, y: heroNode.position.y)
             if (onLand(characterPosition: newPosition, map: rockMap) == false){return}
-            heroRun()
+            heroRunLeft()
             dashSound()
-            heroNode.run(.move(by: .init(dx: -64, dy: 0), duration: 0.2))
-            heroNode.xScale = -1.0;
-            currentColumn -= 1
+            let move = SKAction.move(by: .init(dx:-64, dy:0), duration: 0.15)
+            heroNode.run(move, completion:{
+                currentColumn -= 1
+                moveVector = .init(dx: -64, dy: 0)
+            } )
             tutorialCounter+=1
-            moveVector = .init(dx: -64, dy: 0)
             print("Gesture direction: Left")
             print("\(currentColumn) , \(currentRow)")
             print(heroNode.position)
@@ -524,11 +641,13 @@ class GameScene: SKScene {
             if (onLand(characterPosition: newPosition, map: rockMap) == false){return}
             heroRunUp()
             buyLights()
-            heroNode.run(.move(by: .init(dx: 0, dy: 64), duration: 0.2))
+            let move = SKAction.move(by: .init(dx:0, dy:64), duration: 0.15)
+            heroNode.run(move, completion:{
+                currentRow += 1
+                moveVector = .init(dx: 0, dy: 64)
+            } )
             dashSound()
-            currentRow += 1
             tutorialCounter+=1
-            moveVector = .init(dx: 0, dy: 64)
             print("Gesture direction: Up")
             print("\(currentColumn) , \(currentRow)")
             print(heroNode.position)
@@ -536,13 +655,15 @@ class GameScene: SKScene {
         case .down:
             let newPosition = CGPoint(x: heroNode.position.x, y: heroNode.position.y - 64)
             if (onLand(characterPosition: newPosition, map: rockMap) == false){return}
-            heroNode.run(.move(by: .init(dx: 0, dy: -64), duration: 0.2))
             heroRunDown()
+            let move = SKAction.move(by: .init(dx:0, dy:-64), duration: 0.15)
+            heroNode.run(move, completion:{
+                currentRow -= 1
+                moveVector = .init(dx: 0, dy: -64)
+            } )
             buyDoors()
             dashSound()
-            currentRow -= 1
             tutorialCounter+=1
-            moveVector = .init(dx: 0, dy: -64)
             print("Gesture direction: Down")
             print("\(currentColumn) , \(currentRow)")
             print(heroNode.position)
@@ -587,9 +708,10 @@ class GameScene: SKScene {
     func gameOver() {
         removeAllChildren()
         removeAllActions()
-        
         hitCounter = CGFloat(-1)
-        overImage.size = CGSize(width: 320, height: 320)
+        overImage.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        overImage.anchorPoint = CGPoint(x: 1, y:1)
+        overImage.size = view!.bounds.size
         addChild(overImage)
         view?.scene?.isPaused = false
     }
@@ -637,10 +759,13 @@ class GameScene: SKScene {
         
         startAccelerometers()
         heroSpawn()
+        heroEsclamation()
         coinSpawn()
         skeletonSpawn()
         hearts()
         tutorial()
+        
+        buyChests()
         
         shop = SKSpriteNode(imageNamed: "shop")
         shop.position = .init(x: 180, y: 370)
@@ -663,8 +788,7 @@ class GameScene: SKScene {
         }else {mapImage.alpha = 0}
         
         if(camera!.xScale < 1){
-            
-            camera!.setScale(1.5)
+            camera!.setScale(1)
         }
     }
     
@@ -706,7 +830,7 @@ class GameScene: SKScene {
     }
     
     func jumpingCoin(node: SKNode) {
-        node.run(SKAction.sequence([.moveBy(x: 0, y: 30, duration: 0.18), .moveBy(x: 0, y: -30, duration: 0.12), .moveBy(x: 0, y: 10, duration: 0.066), .moveBy(x: 0, y: -10, duration: 0.1)]))
+        node.run(SKAction.sequence([.moveBy(x: 0, y: 20, duration: 0.18), .moveBy(x: 0, y: -20, duration: 0.12), .moveBy(x: 0, y: 10, duration: 0.066), .moveBy(x: 0, y: -10, duration: 0.1)]))
     }
 
 }
