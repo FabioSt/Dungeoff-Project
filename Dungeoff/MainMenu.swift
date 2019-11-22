@@ -37,7 +37,7 @@ class MenuScene: SKScene {
         tapStartLabel.verticalAlignmentMode = .center
         tapStartLabel.position = CGPoint(
             x: size.width / 2,
-            y: size.height / 2
+            y: size.height / 2 + 200
         )
         tapStartLabel.text = "Tap to Start"
         tapStartLabel.run(SKAction.repeatForever(SKAction.sequence([fadeOut,fadeIn])))
