@@ -36,6 +36,8 @@ var heartContainers = SKSpriteNode(imageNamed: "3of3")
 
 class GameScene: SKScene {
     
+    var chestCounter = false // check if dragon should be spawn
+    
     var label = SKLabelNode(fontNamed: "Savior4")
     var esclamation = SKLabelNode(fontNamed: "Savior4")
     let skeletonNode = SKSpriteNode(imageNamed: "skeleton1")
@@ -73,8 +75,37 @@ class GameScene: SKScene {
             heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
         }
         
+        // DOOR 2 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).y.rounded() {
                     let destination = rockMap.centerOfTile(atColumn: 16, row: 16)
+        //            heroNode.position = destination
+                    heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
+                }
+        
+        // DOOR 3 TELEPORT
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 23, row: 24)
+        //            heroNode.position = destination
+                    heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
+                }
+        
+        // DOOR 3 TELEPORT
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 18, row: 24)
+        //            heroNode.position = destination
+                    heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
+                }
+        
+        // DOOR 4 TELEPORT
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 25, row: 32)
+        //            heroNode.position = destination
+                    heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
+                }
+        
+        // DOOR 5 TELEPORT
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 25, row: 26)
         //            heroNode.position = destination
                     heroNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.5), .fadeAlpha(to: 1, duration: 0.2)]))
                 }
@@ -184,9 +215,11 @@ class GameScene: SKScene {
     
     func buyDoors() {
            
-           let columns = [16, 16]
-           let rows = [17, 21]
+           let columns = [16, 16, 19, 22, 25, 25]
+              let rows = [17, 21, 24, 24, 27, 31]
         walkableTiles.append("WA2-door")
+        walkableTiles.append("WB1-door")
+        walkableTiles.append("WB2-door")
         
                 for i in 0 ... columns.count-1  {
                let doorNode = SKSpriteNode(imageNamed: "door")
@@ -198,8 +231,18 @@ class GameScene: SKScene {
                
                self.addChild(doorNode)
            }
-          
        }
+    
+    func buyChests() {
+        chestCounter = true
+        let chestNode = SKSpriteNode(imageNamed: "chest")
+        chestNode.position = rockMap.centerOfTile(atColumn: 25, row: 39)
+        chestNode.size = CGSize(width: 64, height: 64)
+        chestNode.texture?.filteringMode = .nearest
+        chestNode.lightingBitMask = 0b0001
+        self.addChild(chestNode)
+    }
+    
     
     func isInRange(protagoNode: SKNode, enemyNode: SKNode) -> Bool {
         let heroX = protagoNode.position.x
@@ -347,6 +390,7 @@ class GameScene: SKScene {
         // Load the first frame as initialization
         heroNode.size = CGSize(width: 64, height: 64)
         heroNode.texture?.filteringMode = .nearest
+        heroNode.zPosition = 1000
         heroNode.position = rockMap.centerOfTile(atColumn: 16 , row: 14)
         heroNode.lightingBitMask = 0b0001
         
@@ -677,6 +721,8 @@ class GameScene: SKScene {
         skeletonSpawn()
         hearts()
         tutorial()
+        
+        buyChests()
         
         shop = SKSpriteNode(imageNamed: "shop")
         shop.position = .init(x: 180, y: 370)
