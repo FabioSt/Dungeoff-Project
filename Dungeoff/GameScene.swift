@@ -295,15 +295,19 @@ class GameScene: SKScene {
         if lifeBar.size.width == .zero {
             coinCounter += 100
             lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.7))
-            skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 1), completion: {
+                self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
+            })
+            
             //            skeletonNode.removeFromParent()
             return
         } else if hitCounter >= skeletonHP {
             coinCounter += 100
             lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.7))
-            skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 1), completion: {
+                self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
+            })
+            
         }
         hitCounter += 1
         let newSize = CGSize(width: skeletonNode.size.width - skeletonNode.size.width * hitCounter/skeletonHP, height: skeletonNode.size.height/5)
