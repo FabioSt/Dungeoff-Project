@@ -37,6 +37,7 @@ var heartContainers = SKSpriteNode(imageNamed: "3of3")
 class GameScene: SKScene {
     
     var label = SKLabelNode(fontNamed: "Savior4")
+    var esclamation = SKLabelNode(fontNamed: "Savior4")
     let skeletonNode = SKSpriteNode(imageNamed: "skeleton1")
     var lifeBar = SKSpriteNode(texture: nil)
     let cameraNode = SKCameraNode()
@@ -217,10 +218,15 @@ class GameScene: SKScene {
         if lifeBar.size.width == .zero {
             coinCounter += 100
             lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 1))
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.7))
             skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
             //            skeletonNode.removeFromParent()
             return
+        } else if hitCounter >= skeletonHP {
+            coinCounter += 100
+            lifeBar.removeFromParent()
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.7))
+            skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
         }
         hitCounter += 1
         let newSize = CGSize(width: skeletonNode.size.width - skeletonNode.size.width * hitCounter/skeletonHP, height: skeletonNode.size.height/5)
@@ -258,6 +264,21 @@ class GameScene: SKScene {
         hintLabel.position = CGPoint(x: 0, y: -350)
         hintLabel.text = hints[2]
         camera!.addChild(hintLabel)
+        
+    }
+    
+    func heroEsclamation() {
+        
+        esclamation.fontSize = 20
+        esclamation.fontName = "Savior4"
+        esclamation.fontColor = SKColor.white
+        esclamation.horizontalAlignmentMode = .center
+        esclamation.verticalAlignmentMode = .center
+        esclamation.zPosition = 99
+        esclamation.position = CGPoint(x: 0, y: 50)
+        esclamation.text = "Where am I?"
+        esclamation.run(.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 3), .fadeOut(withDuration: 0.2)]))
+        heroNode.addChild(esclamation)
         
     }
     
@@ -635,6 +656,7 @@ class GameScene: SKScene {
         
         startAccelerometers()
         heroSpawn()
+        heroEsclamation()
         coinSpawn()
         skeletonSpawn()
         hearts()
@@ -661,8 +683,7 @@ class GameScene: SKScene {
         }else {mapImage.alpha = 0}
         
         if(camera!.xScale < 1){
-            
-            camera!.setScale(1.5)
+            camera!.setScale(1)
         }
     }
     
@@ -704,7 +725,7 @@ class GameScene: SKScene {
     }
     
     func jumpingCoin(node: SKNode) {
-        node.run(SKAction.sequence([.moveBy(x: 0, y: 30, duration: 0.18), .moveBy(x: 0, y: -30, duration: 0.12), .moveBy(x: 0, y: 10, duration: 0.066), .moveBy(x: 0, y: -10, duration: 0.1)]))
+        node.run(SKAction.sequence([.moveBy(x: 0, y: 20, duration: 0.18), .moveBy(x: 0, y: -20, duration: 0.12), .moveBy(x: 0, y: 10, duration: 0.066), .moveBy(x: 0, y: -10, duration: 0.1)]))
     }
 
 }
