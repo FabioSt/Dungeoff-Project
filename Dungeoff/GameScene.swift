@@ -32,7 +32,7 @@ var gesture = UISwipeGestureRecognizer()
 var shopView = ShopView()
 
 var cont = 0 // counter for BUMP action
-var coinCounter:Int = 30
+var coinCounter:Int = 300
 
 var heartContainers = SKSpriteNode(imageNamed: "3of3")
 
@@ -185,6 +185,10 @@ class GameScene: SKScene {
         
         if coinCounter > 10 {
             shop.run(.fadeAlpha(to: 1, duration: 2.5))
+        }
+        
+        if self.children.contains(skeletonNode) && (skeletonNode.action(forKey: "chase") == nil){
+            skeletonNode.run(.sequence([chaseHero(hunterNode: skeletonNode, huntedNode: heroNode), .wait(forDuration: 1)]), withKey: "chase")
         }
     }
     
@@ -513,9 +517,9 @@ class GameScene: SKScene {
         
         // hero frames
         
-        let devil0 = SKTexture.init(imageNamed: "hero-idle1")
-        let devil1 = SKTexture.init(imageNamed: "hero-idle2")
-        let devil2 = SKTexture.init(imageNamed: "hero-idle3")
+        let devil0 = SKTexture.init(imageNamed: "devil1")
+        let devil1 = SKTexture.init(imageNamed: "devil2")
+        let devil2 = SKTexture.init(imageNamed: "devil3")
         let devilFrames: [SKTexture] = [devil0, devil1, devil2]
         
         devil0.filteringMode = .nearest
@@ -637,7 +641,7 @@ class GameScene: SKScene {
         self.addChild(skeletonNode)
         
         //        let move1 = SKAction.move(to: (rockMap.centerOfTile(atColumn: 13, row: 13)), duration: 0.2)
-        let waitAction = SKAction.wait(forDuration: 1.5)
+//        let waitAction = SKAction.wait(forDuration: 1.5)
 //        skeletonNode.run(SKAction.repeatForever(SKAction.sequence([chaseHero(hunterNode: skeletonNode, huntedNode: heroNode),waitAction])))
         
     }
@@ -650,17 +654,17 @@ class GameScene: SKScene {
         let huntedX = huntedNode.position.x
         let huntedY = huntedNode.position.y
         
-        let distanceX = huntedX - hunterX
-        let distanceY = huntedY - hunterY
+        let distanceX = huntedX.rounded() - hunterX.rounded()
+        let distanceY = huntedY.rounded() - hunterY.rounded()
         
         let travelDistanceX = rockMap.tileSize.width
         let travelDistanceY = rockMap.tileSize.height
         
-        if abs(distanceX) < abs(distanceY) && distanceX != 0 {
+        if abs(distanceX) > abs(distanceY) && distanceX != 0 {
             if distanceX > 0 {
                 return .moveBy(x: travelDistanceX, y: 0, duration: 0.2)
             } else { return .moveBy(x: -travelDistanceX, y: 0, duration: 0.2) }
-        } else if abs(distanceX) > abs(distanceY) && distanceY != 0 {
+        } else if abs(distanceX) <= abs(distanceY) && distanceY != 0 {
             if distanceY > 0 {
                 return .moveBy(x: 0, y: travelDistanceY, duration: 0.2)
             } else { return .moveBy(x: 0, y: -travelDistanceY, duration: 0.2) }

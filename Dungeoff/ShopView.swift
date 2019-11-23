@@ -51,7 +51,7 @@ struct SoldProduct {
 
 class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     
-    @IBOutlet weak var shopTable: UITableView!
+//    @IBOutlet weak var shopTable: UITableView!
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: .plain)
@@ -98,7 +98,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.row)!")
-        if shopList[indexPath.section][indexPath.row].price > coinCounter { return }
+        if shopList[indexPath.section][indexPath.row].price > coinCounter || shopList[indexPath.section][indexPath.row].soldOut { return }
         else if shopList[indexPath.section][indexPath.row].name == "Torch" {
             sceneDung.buyLights()
             shopList[indexPath.section][indexPath.row].amount = 0
@@ -111,6 +111,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         coinCounter -= shopList[indexPath.section][indexPath.row].price
         self.reloadData()
         self.removeFromSuperview()
+        sceneDung.shop.texture = .init(imageNamed: "shop")
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) { // CHANGE THE FONT HERE
