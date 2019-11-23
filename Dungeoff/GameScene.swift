@@ -640,7 +640,7 @@ class GameScene: SKScene {
             let newPosition = CGPoint(x: heroNode.position.x, y: heroNode.position.y + 64)
             if (onLand(characterPosition: newPosition, map: rockMap) == false){return}
             heroRunUp()
-            buyLights()
+//            buyLights()
             let move = SKAction.move(by: .init(dx:0, dy:64), duration: 0.15)
             heroNode.run(move, completion:{
                 currentRow += 1

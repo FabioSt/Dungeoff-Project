@@ -83,6 +83,9 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.row)!")
         coinCounter -= dataDic[indexPath.row]!.price
+        if dataDic[indexPath.row]?.name == "Torch" {
+            sceneDung.buyLights()
+        }
         self.reloadData()
         //        ShopScene().view?.presentScene(CoinScene(size: (ShopScene().view?.frame.size)!))
         self.removeFromSuperview()
@@ -99,3 +102,13 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     }
     
 }
+
+//class CustomCell: UITableViewCell {
+//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+//        style = .subtitle
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//}
