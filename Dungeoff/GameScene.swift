@@ -261,11 +261,17 @@ class GameScene: SKScene {
     
     func buyDoors() {
            
-           let columns = [16, 16, 19, 22, 25, 25]
-              let rows = [17, 21, 24, 24, 27, 31]
+           let columns = [16, 16, 25, 25]
+              let rows = [17, 21, 27, 31]
         walkableTiles.append("WA2-door")
         walkableTiles.append("WB1-door")
         walkableTiles.append("WB2-door")
+        
+        let columnsLeft = [22]
+        let rowsLeft = [24]
+        
+        let columnsRight = [19]
+        let rowsRight = [24]
         
                 for i in 0 ... columns.count-1  {
                let doorNode = SKSpriteNode(imageNamed: "door")
@@ -277,6 +283,28 @@ class GameScene: SKScene {
                
                self.addChild(doorNode)
            }
+        
+        for i in 0 ... columnsLeft.count-1  {
+            let doorNode = SKSpriteNode(imageNamed: "door-left")
+            
+            doorNode.position = rockMap.centerOfTile(atColumn: columnsLeft[i], row: rowsLeft[i])
+            doorNode.size = CGSize(width: 64, height: 64)
+            doorNode.texture?.filteringMode = .nearest
+            doorNode.lightingBitMask = 0b0001
+            
+            self.addChild(doorNode)
+        }
+        
+        for i in 0 ... columnsRight.count-1  {
+            let doorNode = SKSpriteNode(imageNamed: "door-right")
+            
+            doorNode.position = rockMap.centerOfTile(atColumn: columnsRight[i], row: rowsRight[i])
+            doorNode.size = CGSize(width: 64, height: 64)
+            doorNode.texture?.filteringMode = .nearest
+            doorNode.lightingBitMask = 0b0001
+            
+            self.addChild(doorNode)
+        }
        }
     
     func buyChests() {
@@ -644,6 +672,11 @@ class GameScene: SKScene {
             //        node.run(.move(to: bounceDestination, duration: 0.1))
             node.run(.moveBy(x: bounceDestination.x, y: bounceDestination.y, duration: 0.1))
             heroNode.health -= 1
+            let anim1 = SKAction.fadeOut(withDuration: 0.09)
+            let anim2 = SKAction.fadeIn(withDuration: 0.09)
+            let anim3 = SKAction.fadeOut(withDuration: 0.07)
+            let anim4 = SKAction.fadeIn(withDuration: 0.07)
+            heroNode.run(SKAction.sequence([anim1, anim2, anim3, anim4]))
 //            heartsDamages(health: heroNode.health)
             hitSound()
             heartsDown()
@@ -769,6 +802,9 @@ class GameScene: SKScene {
         self.view?.insertSubview(mapImage, at: 0)
     }
     
+    func traps() {
+        
+    }
     
     func gameOver() {
         removeAllChildren()
