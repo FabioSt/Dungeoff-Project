@@ -10,7 +10,7 @@ import SpriteKit
 import AVFoundation
 
 func dashSound() {
-       if let soundURL = Bundle.main.url(forResource: "sprint", withExtension: "mp3") {
+       if let soundURL = Bundle.main.url(forResource: "dash", withExtension: "wav") {
            var mySound: SystemSoundID = 0
            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
            AudioServicesPlaySystemSound(mySound);

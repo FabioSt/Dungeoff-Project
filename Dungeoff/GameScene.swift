@@ -32,7 +32,7 @@ var gesture = UISwipeGestureRecognizer()
 var shopView = ShopView()
 
 var cont = 0 // counter for BUMP action
-var coinCounter:Int = 0
+var coinCounter:Int = 30
 
 var heartContainers = SKSpriteNode(imageNamed: "3of3")
 
@@ -220,8 +220,10 @@ class GameScene: SKScene {
         }
         if node === self.shop {
             if (view?.subviews.contains(shopView))! {
+                shop.texture = .init(imageNamed: "shop")
                 shopView.removeFromSuperview()
             } else {
+                shop.texture = .init(imageNamed: "cross")
                 summonShop()
             }
         }

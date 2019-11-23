@@ -24,7 +24,7 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     return newImage!
 }
 
-var shopList = [[],[SoldProduct(image: torchPic, price: 10, name: "Torch", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: 50, name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, name: "Coming Soon", soldOut: true, amount: .infinity)]]
+var shopList = [[],[SoldProduct(image: torchPic, price: 10, name: "Torch", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: 50, name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["Shop","Environment","Enemies","Weapons"]
 
@@ -80,7 +80,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         
         cell.textLabel?.text = shopList[indexPath.section][indexPath.row].name
         cell.imageView?.image = shopList[indexPath.section][indexPath.row].image
-        cell.detailTextLabel?.text = "\(String(describing: shopList[indexPath.section][indexPath.row].price)) Golds"
+        cell.detailTextLabel?.text = "\(String(describing: shopList[indexPath.section][indexPath.row].price)) Souls"
         cell.detailTextLabel?.textColor = .black
         cell.textLabel?.textColor = .black
         shopList[indexPath.section][indexPath.row].isSoldOut()
@@ -98,8 +98,8 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.row)!")
-        coinCounter -= shopList[indexPath.section][indexPath.row].price
-        if shopList[indexPath.section][indexPath.row].name == "Torch" {
+        if shopList[indexPath.section][indexPath.row].price > coinCounter { return }
+        else if shopList[indexPath.section][indexPath.row].name == "Torch" {
             sceneDung.buyLights()
             shopList[indexPath.section][indexPath.row].amount = 0
         } else if shopList[indexPath.section][indexPath.row].name == "Doors" {
@@ -108,6 +108,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         } else if shopList[indexPath.section][indexPath.row].name == "Skeleton" {
             sceneDung.skeletonSpawn()
         }
+        coinCounter -= shopList[indexPath.section][indexPath.row].price
         self.reloadData()
         self.removeFromSuperview()
     }
