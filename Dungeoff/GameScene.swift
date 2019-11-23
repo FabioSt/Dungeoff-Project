@@ -32,7 +32,7 @@ var gesture = UISwipeGestureRecognizer()
 var shopView = ShopView()
 
 var cont = 0 // counter for BUMP action
-var coinCounter:Int = 30
+var coinCounter:Int = 130
 
 var heartContainers = SKSpriteNode(imageNamed: "3of3")
 
@@ -49,7 +49,7 @@ class GameScene: SKScene {
     var lifeBar = SKSpriteNode(texture: nil)
     let cameraNode = SKCameraNode()
     let coinNode = SKSpriteNode(imageNamed: "soul2")
-    let devilNode = SKSpriteNode(imageNamed: "hero-idle1")
+    let devilNode = SKSpriteNode(imageNamed: "devil1")
     let heroNode: Character = Character.init()
     let mapImage = UIImageView(frame: UIScreen.main.bounds)
     let overImage = SKSpriteNode(imageNamed: "gameover")
@@ -513,10 +513,11 @@ class GameScene: SKScene {
         
         // hero frames
         
-        let devil0 = SKTexture.init(imageNamed: "hero-idle1")
-        let devil1 = SKTexture.init(imageNamed: "hero-idle2")
-        let devil2 = SKTexture.init(imageNamed: "hero-idle3")
+        let devil0 = SKTexture.init(imageNamed: "devil1")
+        let devil1 = SKTexture.init(imageNamed: "devil2")
+        let devil2 = SKTexture.init(imageNamed: "devil3")
         let devilFrames: [SKTexture] = [devil0, devil1, devil2]
+        let devilTalk = ["HEHEHE!", "YOU OWE THE DEVIL, NOW.", "EARN PLENTY OF SOULS", "AND YOU'LL BE FREE."]
         
         devil0.filteringMode = .nearest
         devil1.filteringMode = .nearest
@@ -525,21 +526,37 @@ class GameScene: SKScene {
         // Load the first frame as initialization
         devilNode.size = CGSize(width: 64, height: 64)
         devilNode.texture?.filteringMode = .nearest
-        devilNode.zPosition = 1000
+        devilNode.zPosition = 999
         devilNode.position = rockMap.centerOfTile(atColumn: 16 , row: 25)
         devilNode.lightingBitMask = 0b0001
         
         let devilEsclamation = SKLabelNode()
-        devilEsclamation.fontSize = 20
+        devilEsclamation.fontSize = 25
         devilEsclamation.fontName = "Savior4"
         devilEsclamation.fontColor = SKColor.white
         devilEsclamation.horizontalAlignmentMode = .center
         devilEsclamation.verticalAlignmentMode = .center
         devilEsclamation.zPosition = 99
         devilEsclamation.position = CGPoint(x: 0, y: 50)
-        devilEsclamation.text = "HEHEHE!"
-        devilEsclamation.run(.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 3), .fadeOut(withDuration: 0.2)]))
+        
         devilNode.addChild(devilEsclamation)
+        
+        let dialog1 = SKAction.run {
+            devilEsclamation.text = devilTalk[0]
+        }
+        let dialog2 = SKAction.run {
+            devilEsclamation.text = devilTalk[1]
+        }
+        let dialog3 = SKAction.run {
+            devilEsclamation.text = devilTalk[2]
+        }
+        let dialog4 = SKAction.run {
+            devilEsclamation.text = devilTalk[3]
+        }
+        
+        let anim = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 3), .fadeOut(withDuration: 0.2), .wait(forDuration: 1)])
+        
+        devilEsclamation.run(.sequence([dialog1,anim, dialog2, anim, dialog3, anim, dialog4, anim]))
         
         // Change the frame per 0.2 sec
         let animation = SKAction.animate(with: devilFrames, timePerFrame: 0.2)
@@ -627,6 +644,7 @@ class GameScene: SKScene {
         let barSize = CGSize(width: skeletonNode.size.width, height: skeletonNode.size.height/5)
         lifeBar = SKSpriteNode(color: #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), size: barSize)
         lifeBar.lightingBitMask = 0b0001
+        lifeBar.zPosition = 1001
         let lifeBarPosition = CGPoint(x: skeletonNode.position.x, y: skeletonNode.position.y + skeletonNode.size.height)
         lifeBar.position = lifeBarPosition
         self.addChild(lifeBar)
