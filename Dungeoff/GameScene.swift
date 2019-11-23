@@ -39,9 +39,11 @@ var heartContainers = SKSpriteNode(imageNamed: "3of3")
 class GameScene: SKScene {
     
     var chestChecker = false // check if dragon should be spawn
+    var dragonChecker = false
     
     var label = SKLabelNode(fontNamed: "Savior4")
     var esclamation = SKLabelNode(fontNamed: "Savior4")
+    let dragonNode = SKSpriteNode(imageNamed:"dragon01")
     let skeletonNode = SKSpriteNode(imageNamed: "skeleton1")
     var lifeBar = SKSpriteNode(texture: nil)
     let cameraNode = SKCameraNode()
@@ -67,6 +69,15 @@ class GameScene: SKScene {
                 coinNode.removeFromParent()
                 print(coinCounter)
                 label.text = "\(coinCounter)"
+            }
+        }
+        
+        
+        // DRAGON SPAWN
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 36).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 36).y.rounded() {
+            
+            while (dragonChecker == false) && (chestChecker == true){
+                dragonSpawn()
             }
         }
         
@@ -182,6 +193,7 @@ class GameScene: SKScene {
             if isInRange(protagoNode: heroNode, enemyNode: skeletonNode) {
                 checkHP()
                 slashSound()
+                heroAttack()
             }
         }
         if node === self.overImage {
@@ -295,15 +307,19 @@ class GameScene: SKScene {
         if lifeBar.size.width == .zero {
             coinCounter += 100
             lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.7))
-            skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 1), completion: {
+                self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
+            })
+            
             //            skeletonNode.removeFromParent()
             return
         } else if hitCounter >= skeletonHP {
             coinCounter += 100
             lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.7))
-            skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 1), completion: {
+                self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
+            })
+            
         }
         hitCounter += 1
         let newSize = CGSize(width: skeletonNode.size.width - skeletonNode.size.width * hitCounter/skeletonHP, height: skeletonNode.size.height/5)
@@ -409,6 +425,22 @@ class GameScene: SKScene {
         heroNode.run(SKAction.repeat(animation, count: 1))
     }
     
+    func heroAttack() {
+        // hero frames
+        let herof0 = SKTexture.init(imageNamed: "heroattack1")
+        let herof1 = SKTexture.init(imageNamed: "heroattack2")
+        let herof2 = SKTexture.init(imageNamed: "heroattack3")
+        let heroFrames: [SKTexture] = [herof0, herof1, herof2]
+        
+        herof0.filteringMode = .nearest
+        herof1.filteringMode = .nearest
+        herof2.filteringMode = .nearest
+        
+        // Change the frame per 0.2 sec
+        let animation = SKAction.animate(with: heroFrames, timePerFrame: 0.05)
+        heroNode.run(SKAction.repeat(animation, count: 1))
+    }
+    
     func heroSpawn(){
         
         // hero frames
@@ -434,6 +466,38 @@ class GameScene: SKScene {
         
         self.addChild(heroNode)
     }
+    
+    func dragonSpawn(){
+    dragonChecker = true
+        view?.isUserInteractionEnabled = false
+    let dragon1 = SKTexture.init(imageNamed:"dragon00")
+    let dragon2 = SKTexture.init(imageNamed:"dragon01")
+    let dragFrames: [SKTexture] = [dragon1, dragon2]
+    dragon1.filteringMode = .nearest
+    dragon2.filteringMode = .nearest
+    dragonNode.position = rockMap.centerOfTile(atColumn: 25, row: 50)
+    dragonNode.size = CGSize(width: 512, height: 512)
+    dragonNode.zPosition = 1001
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 0.3)
+        let fallDown = SKAction.move(to: (rockMap.centerOfTile(atColumn: 25, row: 39)), duration: 0.5)
+        let audio = SKAction.playSoundFileNamed("slam", waitForCompletion: false)
+        let shake = SKAction.run {
+            self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 20, dy: 20), shakeDuration: 1)
+            self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 10, dy: 5), shakeDuration: 0.2)
+        }
+        let wait = SKAction.wait(forDuration: 0.2)
+        let animation = SKAction.animate(with: dragFrames, timePerFrame: 0.5)
+        let seq = SKAction.repeat(animation, count: 2)
+        let end = SKAction.move(to: (heroNode.position), duration: 0.2)
+
+        dragonNode.run(SKAction.repeat(.sequence([fadeIn, fallDown, audio, shake, wait, seq, end]),count: 1),completion: {
+            self.gameOver()
+        })
+        
+    self.addChild(dragonNode)
+    }
+    
     
     func skeletonSpawn(){
         
@@ -501,14 +565,14 @@ class GameScene: SKScene {
         coinNode.position = CGPoint(x: -170, y: 370)
         coinNode.size = CGSize(width: 40, height: 40)
         coinNode.texture?.filteringMode = .nearest
-        coinNode.zPosition = 99
+        coinNode.zPosition = 1002
         
         
         label.position = CGPoint(x: -140, y: 357)
         label.horizontalAlignmentMode = .left
         label.fontColor = SKColor.white
         label.fontSize = 55
-        label.zPosition = 99
+        label.zPosition = 1002
         
         camera!.addChild(label)
         camera!.addChild(coinNode)
@@ -546,7 +610,7 @@ class GameScene: SKScene {
     func hearts() {
          heartContainers.size = CGSize(width: 118, height: 30)
         heartContainers.position = CGPoint(x: -134, y: 325)
-         heartContainers.zPosition = 100
+         heartContainers.zPosition = 1002
      camera!.addChild(heartContainers)
     }
     
@@ -832,6 +896,15 @@ class GameScene: SKScene {
     func jumpingCoin(node: SKNode) {
         node.run(SKAction.sequence([.moveBy(x: 0, y: 20, duration: 0.18), .moveBy(x: 0, y: -20, duration: 0.12), .moveBy(x: 0, y: 10, duration: 0.066), .moveBy(x: 0, y: -10, duration: 0.1)]))
     }
-
+    func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
+      let sceneView = self.scene!.view! as UIView
+      let shakeAnimation = CABasicAnimation(keyPath: "position")
+      shakeAnimation.duration = shakeDuration / Double(shakeCount)
+      shakeAnimation.repeatCount = Float(shakeCount)
+      shakeAnimation.autoreverses = true
+      shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
+      shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
+      sceneView.layer.add(shakeAnimation, forKey: "position")
+    }
 }
 
