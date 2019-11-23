@@ -25,14 +25,15 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     return newImage!
 }
 
-var shopList = [[],[SoldProduct(image: torchPic, price: 10, name: "Torch", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: -50, name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, name: "Coming Soon", soldOut: true, amount: 0)]]
+var shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"-10", name: "Torch", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "-100", name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "+50", name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
-let sectionList = ["Shop","Environment","Enemies","Weapons"]
+let sectionList = ["The Soul Keeper","Environment","Enemies","Weapons"]
 
 
 struct SoldProduct {
     let image: UIImage?
     let price: Int
+    let priceShow: String
     let name: String
     var soldOut: Bool
     var amount: Double
@@ -81,7 +82,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         
         cell.textLabel?.text = shopList[indexPath.section][indexPath.row].name
         cell.imageView?.image = shopList[indexPath.section][indexPath.row].image
-        cell.detailTextLabel?.text = "\(String(describing: shopList[indexPath.section][indexPath.row].price)) Souls"
+        cell.detailTextLabel?.text = "\(String(describing: shopList[indexPath.section][indexPath.row].priceShow)) Souls"
         cell.detailTextLabel?.textColor = .black
         cell.textLabel?.textColor = .black
         shopList[indexPath.section][indexPath.row].isSoldOut()
@@ -118,8 +119,8 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) { // CHANGE THE FONT HERE
         guard let header = view as? UITableViewHeaderFooterView else { return }
-        if section == 0 {header.textLabel?.font = UIFont.boldSystemFont(ofSize: 40)}
-        else {header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 150))}
+        if section == 0 {header.textLabel?.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.bold)}
+        else {header.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)}
     }
     
     override func headerView(forSection section: Int) -> UITableViewHeaderFooterView? {
@@ -127,7 +128,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         return header
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 { return 90 }
+        if section == 0 { return 50 }
         return 30
     }
     

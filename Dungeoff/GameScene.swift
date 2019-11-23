@@ -995,7 +995,8 @@ class GameScene: SKScene {
         buyChests()
         
         shop = SKSpriteNode(imageNamed: "shop")
-        shop.position = .init(x: 165, y: 370)
+        shop.position = .init(x: 160, y: 370)
+        shop.size = CGSize(width: 48, height: 48)
         shop.alpha = 0
         shop.zPosition = 1000
         camera!.addChild(shop)
