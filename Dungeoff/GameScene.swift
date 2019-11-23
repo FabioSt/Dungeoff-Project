@@ -49,6 +49,7 @@ class GameScene: SKScene {
     var lifeBar = SKSpriteNode(texture: nil)
     let cameraNode = SKCameraNode()
     let coinNode = SKSpriteNode(imageNamed: "soul2")
+    let devilNode = SKSpriteNode(imageNamed: "hero-idle1")
     let heroNode: Character = Character.init()
     let mapImage = UIImageView(frame: UIScreen.main.bounds)
     let overImage = SKSpriteNode(imageNamed: "gameover")
@@ -64,13 +65,10 @@ class GameScene: SKScene {
             bump(node: heroNode, arrivingDirection: moveVector)
             checkHP()
             print("move Vector is \(moveVector)")
-        } else if comparePositionRound(position1: heroNode.position, position2: coinNode.position) {
-            if coinNode.parent != nil {
-                coinCounter += 1
-                coinNode.removeFromParent()
-                print(coinCounter)
-                label.text = "\(coinCounter)"
-            }
+        } else if comparePositionRound(position1: heroNode.position, position2: devilNode.position) {
+            //            attack(targetPosition: skeletonNode.position)
+            bumpNoDmg(node: heroNode, arrivingDirection: moveVector)
+            heroNode.health += 1
         }
         
         
@@ -85,8 +83,8 @@ class GameScene: SKScene {
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 22).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 22).y.rounded() {
             while (trapChecker == false){
                 buyTraps()
-                bump(node: heroNode, arrivingDirection: moveVector)
-                
+                bump(node: heroNode, arrivingDirection: CGVector(dx: 0, dy: -rockMap.tileSize.height))
+                devilSpawn()
             }
         }
         
@@ -507,6 +505,45 @@ class GameScene: SKScene {
         heroNode.run(SKAction.repeat(animation, count: 1))
     }
     
+    func devilSpawn(){
+        
+        // hero frames
+        
+        let devil0 = SKTexture.init(imageNamed: "hero-idle1")
+        let devil1 = SKTexture.init(imageNamed: "hero-idle2")
+        let devil2 = SKTexture.init(imageNamed: "hero-idle3")
+        let devilFrames: [SKTexture] = [devil0, devil1, devil2]
+        
+        devil0.filteringMode = .nearest
+        devil1.filteringMode = .nearest
+        devil2.filteringMode = .nearest
+        
+        // Load the first frame as initialization
+        devilNode.size = CGSize(width: 64, height: 64)
+        devilNode.texture?.filteringMode = .nearest
+        devilNode.zPosition = 1000
+        devilNode.position = rockMap.centerOfTile(atColumn: 16 , row: 25)
+        devilNode.lightingBitMask = 0b0001
+        
+        let devilEsclamation = SKLabelNode()
+        devilEsclamation.fontSize = 20
+        devilEsclamation.fontName = "Savior4"
+        devilEsclamation.fontColor = SKColor.white
+        devilEsclamation.horizontalAlignmentMode = .center
+        devilEsclamation.verticalAlignmentMode = .center
+        devilEsclamation.zPosition = 99
+        devilEsclamation.position = CGPoint(x: 0, y: 50)
+        devilEsclamation.text = "HEHEHE!"
+        devilEsclamation.run(.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 3), .fadeOut(withDuration: 0.2)]))
+        devilNode.addChild(devilEsclamation)
+        
+        // Change the frame per 0.2 sec
+        let animation = SKAction.animate(with: devilFrames, timePerFrame: 0.2)
+        devilNode.run(SKAction.repeatForever(animation))
+        
+        self.addChild(devilNode)
+    }
+    
     func heroSpawn(){
         
         // hero frames
@@ -700,6 +737,16 @@ class GameScene: SKScene {
         skeletonNode.position = rockMap.centerOfTile(atColumn: column, row: row)
     }
     
+    func bumpNoDmg(node: SKNode, arrivingDirection: CGVector) {
+            cont += 1
+            if(cont != 2)
+            {
+                let bounceDestination = CGPoint(x: -arrivingDirection.dx, y: -arrivingDirection.dy)
+                node.run(.moveBy(x: bounceDestination.x, y: bounceDestination.y, duration: 0.1))
+            }else{
+                cont = 0
+            }
+        }
     
     
     func bump(node: SKNode, arrivingDirection: CGVector) {
