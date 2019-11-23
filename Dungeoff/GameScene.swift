@@ -216,7 +216,7 @@ class GameScene: SKScene {
             lightNode.run(.falloff(to: 1, duration: 0.2))
             lightNode.falloff = 1
             lightNode.lightColor = #colorLiteral(red: 0.7681630254, green: 0.9664419293, blue: 1, alpha: 1)
-            backgroundColor = SKColor.init(red: 0.1647, green: 0.0745, blue: 0.1961, alpha: 1.0)
+            
         }
         if node === self.shop {
             if (view?.subviews.contains(shopView))! {
@@ -241,7 +241,7 @@ class GameScene: SKScene {
     }
     
     func buyLights() {
-        
+        backgroundColor = SKColor.init(red: 0.1647, green: 0.0745, blue: 0.1961, alpha: 1.0)
         let columns = [15, 17]
         let rows = [17, 17]
         
