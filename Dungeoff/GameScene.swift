@@ -74,7 +74,7 @@ class GameScene: SKScene {
         
         
         // DRAGON SPAWN
-        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 36).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 36).y.rounded() {
+        if heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 36).y.rounded() {
             
             while (dragonChecker == false) && (chestChecker == true){
                 dragonSpawn()
@@ -84,11 +84,11 @@ class GameScene: SKScene {
         // DOOR 1 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).y.rounded() {
             let destination = rockMap.centerOfTile(atColumn: 16, row: 22)
-            gesture.isEnabled = false
+            view?.isUserInteractionEnabled = false
 //            heroNode.position = destination
             let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
             heroNode.run(animation, completion: {
-                gesture.isEnabled = true
+                self.view?.isUserInteractionEnabled = true
             })
         }
         
@@ -96,11 +96,11 @@ class GameScene: SKScene {
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).y.rounded() {
                     let destination = rockMap.centerOfTile(atColumn: 16, row: 16)
         //            heroNode.position = destination
-            gesture.isEnabled = false
+            view?.isUserInteractionEnabled = false
                     //         heroNode.position = destination
                     let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
                     heroNode.run(animation, completion: {
-                    gesture.isEnabled = true
+                        self.view?.isUserInteractionEnabled = true
                 })
             }
         
@@ -108,11 +108,11 @@ class GameScene: SKScene {
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).y.rounded() {
                     let destination = rockMap.centerOfTile(atColumn: 23, row: 24)
         //            heroNode.position = destination
-            gesture.isEnabled = false
+            view?.isUserInteractionEnabled = false
             //            heroNode.position = destination
                     let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
                     heroNode.run(animation, completion: {
-                    gesture.isEnabled = true
+                        self.view?.isUserInteractionEnabled = true
                     })
             }
         
@@ -120,11 +120,11 @@ class GameScene: SKScene {
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).y.rounded() {
                     let destination = rockMap.centerOfTile(atColumn: 18, row: 24)
         //            heroNode.position = destination
-            gesture.isEnabled = false
+            view?.isUserInteractionEnabled = false
                     //            heroNode.position = destination
                 let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
                     heroNode.run(animation, completion: {
-                    gesture.isEnabled = true
+                        self.view?.isUserInteractionEnabled = true
                     })
                 }
         
@@ -133,11 +133,11 @@ class GameScene: SKScene {
                     
                     let destination = rockMap.centerOfTile(atColumn: 25, row: 32)
         //            heroNode.position = destination
-                gesture.isEnabled = false
+                view?.isUserInteractionEnabled = false
                     //            heroNode.position = destination
                     let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
                     heroNode.run(animation, completion: {
-                    gesture.isEnabled = true
+                        self.view?.isUserInteractionEnabled = true
                     })
                 }
         
@@ -145,11 +145,11 @@ class GameScene: SKScene {
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).y.rounded() {
                     let destination = rockMap.centerOfTile(atColumn: 25, row: 26)
         //            heroNode.position = destination
-            gesture.isEnabled = false
+            view?.isUserInteractionEnabled = false
             //            heroNode.position = destination
                         let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
                         heroNode.run(animation, completion: {
-                            gesture.isEnabled = true
+                            self.view?.isUserInteractionEnabled = true
                         })
                 }
         
@@ -469,7 +469,7 @@ class GameScene: SKScene {
     
     func dragonSpawn(){
     dragonChecker = true
-        view?.isUserInteractionEnabled = false
+    view?.isUserInteractionEnabled = false
     let dragon1 = SKTexture.init(imageNamed:"dragon00")
     let dragon2 = SKTexture.init(imageNamed:"dragon01")
     let dragFrames: [SKTexture] = [dragon1, dragon2]
@@ -477,6 +477,7 @@ class GameScene: SKScene {
     dragon2.filteringMode = .nearest
     dragonNode.position = rockMap.centerOfTile(atColumn: 25, row: 50)
     dragonNode.size = CGSize(width: 512, height: 512)
+    dragonNode.lightingBitMask = 0b0001
     dragonNode.zPosition = 1001
         
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
@@ -492,7 +493,7 @@ class GameScene: SKScene {
         let end = SKAction.move(to: (heroNode.position), duration: 0.2)
 
         dragonNode.run(SKAction.repeat(.sequence([fadeIn, fallDown, audio, shake, wait, seq, end]),count: 1),completion: {
-            self.gameOver()
+            self.demoOver()
         })
         
     self.addChild(dragonNode)
@@ -780,6 +781,26 @@ class GameScene: SKScene {
         view?.scene?.isPaused = false
     }
     
+    func demoOver() {
+        view?.isUserInteractionEnabled = true
+        removeAllChildren()
+        removeAllActions()
+        hitCounter = CGFloat(-1)
+        overImage.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        overImage.anchorPoint = CGPoint(x: 1, y:1)
+        overImage.size = view!.bounds.size
+        addChild(overImage)
+        view?.scene?.isPaused = false
+        let wait = SKAction.wait(forDuration: 2)
+        let reset = SKAction.run {
+            let gameScene = MenuScene(size: self.view!.frame.size)
+            gameScene.scaleMode = .aspectFit
+            self.view?.presentScene(gameScene, transition: SKTransition.fade(withDuration: 1.5))
+        }
+        scene!.run(SKAction.repeat(.sequence([wait, reset]),count: 1),completion: {
+
+        })
+    }
     
     
     override func didMove(to view: SKView) {
