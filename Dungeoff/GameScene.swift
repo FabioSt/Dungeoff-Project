@@ -42,6 +42,7 @@ class GameScene: SKScene {
     var dragonChecker = false
     var trapChecker = false
     
+    let devilEsclamation = SKLabelNode()
     var label = SKLabelNode(fontNamed: "Savior4")
     var esclamation = SKLabelNode(fontNamed: "Savior4")
     let dragonNode = SKSpriteNode(imageNamed:"dragon01")
@@ -61,14 +62,19 @@ class GameScene: SKScene {
     
     func checkPositions() {
         if comparePositionRound(position1: heroNode.position, position2: skeletonNode.position) {
-            //            attack(targetPosition: skeletonNode.position)
+            // attack(targetPosition: skeletonNode.position)
             bump(node: heroNode, arrivingDirection: moveVector)
             checkHP()
             print("move Vector is \(moveVector)")
         } else if comparePositionRound(position1: heroNode.position, position2: devilNode.position) {
-            //            attack(targetPosition: skeletonNode.position)
+            // attack(targetPosition: skeletonNode.position)
             bumpNoDmg(node: heroNode, arrivingDirection: moveVector)
             heroNode.health += 1
+            devilEsclamation.removeAction(forKey: "devilDialog")
+            devilNode.run(.fadeAlpha(to: 1, duration: 0))
+            devilNode.run(.fadeAlpha(to: 0, duration: 2))
+            devilNode.run(.moveBy(x: 0, y: 400, duration: 3))
+            devilEsclamation.text = "HOW DARE YOU!"
         }
         
         
@@ -114,6 +120,7 @@ class GameScene: SKScene {
         
         // DOOR 3 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).y.rounded() {
+           // if skeletonBought { skeletonSpawn() }
                     let destination = rockMap.centerOfTile(atColumn: 23, row: 24)
         //            heroNode.position = destination
             view?.isUserInteractionEnabled = false
@@ -124,7 +131,7 @@ class GameScene: SKScene {
                     })
             }
         
-        // DOOR 3 TELEPORT
+        // DOOR 4 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).y.rounded() {
                     let destination = rockMap.centerOfTile(atColumn: 18, row: 24)
         //            heroNode.position = destination
@@ -136,7 +143,7 @@ class GameScene: SKScene {
                     })
                 }
         
-        // DOOR 4 TELEPORT
+        // DOOR 5 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).y.rounded() {
                     
                     let destination = rockMap.centerOfTile(atColumn: 25, row: 32)
@@ -149,7 +156,7 @@ class GameScene: SKScene {
                     })
                 }
         
-        // DOOR 5 TELEPORT
+        // DOOR 6 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).y.rounded() {
                     let destination = rockMap.centerOfTile(atColumn: 25, row: 26)
         //            heroNode.position = destination
@@ -329,15 +336,8 @@ class GameScene: SKScene {
         let rows = [22]
         
         for i in 0 ... columns.count-1  {
-        let trapsNode = SKSpriteNode(imageNamed: "torch00")
-        let trap0 = SKTexture.init(imageNamed: "torch00")
-        let trap1 = SKTexture.init(imageNamed: "torch01")
-        let trap2 = SKTexture.init(imageNamed: "torch02")
-        let torchFrames: [SKTexture] = [trap0, trap1, trap2]
-        trap0.filteringMode = .nearest
-        trap1.filteringMode = .nearest
-        trap2.filteringMode = .nearest
-                   
+        let trapsNode = SKSpriteNode(imageNamed: "trap")
+        
         // Load the first frame as initialization
         trapsNode.position = rockMap.centerOfTile(atColumn: columns[i], row: rows[i])
         trapsNode.size = CGSize(width: 64, height: 64)
@@ -345,8 +345,7 @@ class GameScene: SKScene {
         trapsNode.lightingBitMask = 0b0001
                    
         // Change the frame per 0.2 sec
-        let animation = SKAction.animate(with: torchFrames, timePerFrame: 0.2)
-        trapsNode.run(SKAction.repeatForever(animation))
+            trapsNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 1.5), .fadeAlpha(to: 0, duration: 0.2)]))
         self.addChild(trapsNode)
         }
     }
@@ -534,7 +533,6 @@ class GameScene: SKScene {
         devilNode.position = rockMap.centerOfTile(atColumn: 16 , row: 25)
         devilNode.lightingBitMask = 0b0001
         
-        let devilEsclamation = SKLabelNode()
         devilEsclamation.fontSize = 25
         devilEsclamation.fontName = "Savior4"
         devilEsclamation.fontColor = SKColor.white
@@ -546,21 +544,21 @@ class GameScene: SKScene {
         devilNode.addChild(devilEsclamation)
         
         let dialog1 = SKAction.run {
-            devilEsclamation.text = devilTalk[0]
+            self.devilEsclamation.text = devilTalk[0]
         }
         let dialog2 = SKAction.run {
-            devilEsclamation.text = devilTalk[1]
+            self.devilEsclamation.text = devilTalk[1]
         }
         let dialog3 = SKAction.run {
-            devilEsclamation.text = devilTalk[2]
+            self.devilEsclamation.text = devilTalk[2]
         }
         let dialog4 = SKAction.run {
-            devilEsclamation.text = devilTalk[3]
+            self.devilEsclamation.text = devilTalk[3]
         }
         
         let anim = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 3), .fadeOut(withDuration: 0.2), .wait(forDuration: 1)])
         
-        devilEsclamation.run(.sequence([dialog1,anim, dialog2, anim, dialog3, anim, dialog4, anim]))
+        devilEsclamation.run(.sequence([dialog1,anim, dialog2, anim, dialog3, anim, dialog4, anim]), withKey: "devilDialog")
         
         // Change the frame per 0.2 sec
         let animation = SKAction.animate(with: devilFrames, timePerFrame: 0.2)
@@ -640,7 +638,7 @@ class GameScene: SKScene {
         skelf2.filteringMode = .nearest
         
         // Load the first frame as initialization
-        skeletonNode.position = rockMap.centerOfTile(atColumn: 14, row: 13)
+        skeletonNode.position = rockMap.centerOfTile(atColumn: 26, row: 24)
         skeletonNode.size = CGSize(width: 64, height: 64)
         skeletonNode.texture?.filteringMode = .nearest
         skeletonNode.lightingBitMask = 0b0001
@@ -997,7 +995,7 @@ class GameScene: SKScene {
         buyChests()
         
         shop = SKSpriteNode(imageNamed: "shop")
-        shop.position = .init(x: 180, y: 370)
+        shop.position = .init(x: 165, y: 370)
         shop.alpha = 0
         shop.zPosition = 1000
         camera!.addChild(shop)

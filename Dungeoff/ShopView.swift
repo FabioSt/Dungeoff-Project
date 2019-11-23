@@ -14,6 +14,7 @@ import UIKit
 let skeletonPic = scaleDown(image: UIImage(named: "skeleton1")!, withSize: CGSize(width: 20, height: 20))
 let doorPic = scaleDown(image: UIImage(named: "door")!, withSize: CGSize(width: 20, height: 20))
 let torchPic = scaleDown(image: UIImage(named: "torch00")!, withSize: CGSize(width: 20, height: 20))
+var skeletonBought = false
 
 func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     let scale = UIScreen.main.scale
@@ -24,7 +25,7 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     return newImage!
 }
 
-var shopList = [[],[SoldProduct(image: torchPic, price: 10, name: "Torch", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: 50, name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, name: "Coming Soon", soldOut: true, amount: 0)]]
+var shopList = [[],[SoldProduct(image: torchPic, price: 10, name: "Torch", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: -50, name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["Shop","Environment","Enemies","Weapons"]
 
@@ -106,6 +107,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
             sceneDung.buyDoors()
             shopList[indexPath.section][indexPath.row].amount = 0
         } else if shopList[indexPath.section][indexPath.row].name == "Skeleton" {
+            //skeletonBought = true
             sceneDung.skeletonSpawn()
         }
         coinCounter -= shopList[indexPath.section][indexPath.row].price
