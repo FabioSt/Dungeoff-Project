@@ -40,6 +40,7 @@ class GameScene: SKScene {
     
     var chestChecker = false // check if dragon should be spawn
     var dragonChecker = false
+    var trapChecker = false
     
     var label = SKLabelNode(fontNamed: "Savior4")
     var esclamation = SKLabelNode(fontNamed: "Savior4")
@@ -80,6 +81,15 @@ class GameScene: SKScene {
                 dragonSpawn()
             }
         }
+        
+        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 22).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 22).y.rounded() {
+            while (trapChecker == false){
+                buyTraps()
+                bump(node: heroNode, arrivingDirection: moveVector)
+                
+            }
+        }
+        
         
         // DOOR 1 TELEPORT
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).y.rounded() {
@@ -306,6 +316,34 @@ class GameScene: SKScene {
             self.addChild(doorNode)
         }
        }
+    
+    func buyTraps() {
+        trapChecker = true
+        let columns = [16]
+        let rows = [22]
+        
+        for i in 0 ... columns.count-1  {
+        let trapsNode = SKSpriteNode(imageNamed: "torch00")
+        let trap0 = SKTexture.init(imageNamed: "torch00")
+        let trap1 = SKTexture.init(imageNamed: "torch01")
+        let trap2 = SKTexture.init(imageNamed: "torch02")
+        let torchFrames: [SKTexture] = [trap0, trap1, trap2]
+        trap0.filteringMode = .nearest
+        trap1.filteringMode = .nearest
+        trap2.filteringMode = .nearest
+                   
+        // Load the first frame as initialization
+        trapsNode.position = rockMap.centerOfTile(atColumn: columns[i], row: rows[i])
+        trapsNode.size = CGSize(width: 64, height: 64)
+        trapsNode.texture?.filteringMode = .nearest
+        trapsNode.lightingBitMask = 0b0001
+                   
+        // Change the frame per 0.2 sec
+        let animation = SKAction.animate(with: torchFrames, timePerFrame: 0.2)
+        trapsNode.run(SKAction.repeatForever(animation))
+        self.addChild(trapsNode)
+        }
+    }
     
     func buyChests() {
         chestChecker = true
@@ -802,9 +840,6 @@ class GameScene: SKScene {
         self.view?.insertSubview(mapImage, at: 0)
     }
     
-    func traps() {
-        
-    }
     
     func gameOver() {
         removeAllChildren()
