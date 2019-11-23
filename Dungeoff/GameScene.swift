@@ -220,7 +220,9 @@ class GameScene: SKScene {
     }
     
     func summonShop() {
-        shopView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        
+        shopView.register(cell.classForCoder, forCellReuseIdentifier: "cell")
         let frame = CGRect(x: 30, y: 150, width: (view?.frame.width)!-60, height: (view?.frame.height)!-150)
         shopView.frame = frame
         shopView.backgroundColor = .white
@@ -468,16 +470,17 @@ class GameScene: SKScene {
     }
     
     func dragonSpawn(){
-    dragonChecker = true
+        dragonChecker = true
         view?.isUserInteractionEnabled = false
-    let dragon1 = SKTexture.init(imageNamed:"dragon00")
-    let dragon2 = SKTexture.init(imageNamed:"dragon01")
-    let dragFrames: [SKTexture] = [dragon1, dragon2]
-    dragon1.filteringMode = .nearest
-    dragon2.filteringMode = .nearest
-    dragonNode.position = rockMap.centerOfTile(atColumn: 25, row: 50)
-    dragonNode.size = CGSize(width: 512, height: 512)
-    dragonNode.zPosition = 1001
+        let dragon1 = SKTexture.init(imageNamed:"dragon00")
+        let dragon2 = SKTexture.init(imageNamed:"dragon01")
+        let dragFrames: [SKTexture] = [dragon1, dragon2]
+        dragon1.filteringMode = .nearest
+        dragon2.filteringMode = .nearest
+        dragonNode.position = rockMap.centerOfTile(atColumn: 25, row: 50)
+        dragonNode.size = CGSize(width: 512, height: 512)
+        dragonNode.lightingBitMask = 0b0001
+        dragonNode.zPosition = 1001
         
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         let fallDown = SKAction.move(to: (rockMap.centerOfTile(atColumn: 25, row: 39)), duration: 0.5)
@@ -490,12 +493,12 @@ class GameScene: SKScene {
         let animation = SKAction.animate(with: dragFrames, timePerFrame: 0.5)
         let seq = SKAction.repeat(animation, count: 2)
         let end = SKAction.move(to: (heroNode.position), duration: 0.2)
-
+        
         dragonNode.run(SKAction.repeat(.sequence([fadeIn, fallDown, audio, shake, wait, seq, end]),count: 1),completion: {
             self.gameOver()
         })
         
-    self.addChild(dragonNode)
+        self.addChild(dragonNode)
     }
     
     
@@ -725,7 +728,7 @@ class GameScene: SKScene {
                 currentRow -= 1
                 moveVector = .init(dx: 0, dy: -64)
             } )
-            buyDoors()
+//            buyDoors()
             dashSound()
             tutorialCounter+=1
             print("Gesture direction: Down")
@@ -825,7 +828,7 @@ class GameScene: SKScene {
         heroSpawn()
         heroEsclamation()
         coinSpawn()
-        skeletonSpawn()
+//        skeletonSpawn()
         hearts()
         tutorial()
         

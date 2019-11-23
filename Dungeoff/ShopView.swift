@@ -10,12 +10,24 @@ import Foundation
 import UIKit
 
 
+//let coinPic = UIImage(named: "coin")
+let skeletonPic = scaleDown(image: UIImage(named: "skeleton1")!, withSize: CGSize(width: 20, height: 20))
+let doorPic = scaleDown(image: UIImage(named: "door")!, withSize: CGSize(width: 20, height: 20))
+let torchPic = scaleDown(image: UIImage(named: "torch00")!, withSize: CGSize(width: 20, height: 20))
 
+func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
+    let scale = UIScreen.main.scale
+    UIGraphicsBeginImageContextWithOptions(withSize, false, scale)
+    image.draw(in: CGRect(x: 0, y: 0, width: withSize.width, height: withSize.height))
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return newImage!
+}
 
-let coinPic = UIImage(named: "coin")
-let sectionList = ["Environment","Weapons","Items"]
+var shopList = [[],[SoldProduct(image: torchPic, price: 10, name: "Torch", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: 50, name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, name: "Coming Soon", soldOut: true, amount: .infinity)]]
 
-var dataDic = [0:SoldProduct(image: UIImage(named: "torch00"), price: 10, name: "Torch", soldOut: false, amount: 1), 1:SoldProduct(image: UIImage(named: "door"), price: 50, name: "Door", soldOut: false, amount: 1), 2:SoldProduct(image: UIImage(named: "coin"), price: 999999, name: "A collection coin", soldOut: false, amount: .infinity)]
+let sectionList = ["Shop","Environment","Enemies","Weapons"]
+
 
 struct SoldProduct {
     let image: UIImage?
@@ -46,8 +58,6 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         self.delegate = self
         self.dataSource = self
         //        self.backgroundView?.colo
-        
-        self.accessibilityAttributedLabel = NSAttributedString(string: "et la ca din")
     }
 
     
@@ -56,24 +66,30 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     }
     // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionList.count
+        return shopList.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataDic.count
+        return shopList[section].count
     }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
-        cell.textLabel?.text = dataDic[indexPath.row]?.name
-        cell.imageView?.image = dataDic[indexPath.row]?.image
-        cell.detailTextLabel?.text = "\(dataDic[indexPath.row]?.price) Golds"
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+//        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
+        
+        cell.textLabel?.text = shopList[indexPath.section][indexPath.row].name
+        cell.imageView?.image = shopList[indexPath.section][indexPath.row].image
+        cell.detailTextLabel?.text = "\(String(describing: shopList[indexPath.section][indexPath.row].price)) Golds"
         cell.detailTextLabel?.textColor = .black
         cell.textLabel?.textColor = .black
-        dataDic[indexPath.row]?.isSoldOut()
-        if dataDic[indexPath.row]!.soldOut {
-            cell.backgroundColor = .gray
+        shopList[indexPath.section][indexPath.row].isSoldOut()
+        if shopList[indexPath.section][indexPath.row].soldOut {
+            cell.textLabel?.textColor = .gray
+            cell.detailTextLabel?.text = "Sold Out"
+            cell.detailTextLabel?.textColor = .gray
         } else {
-            cell.backgroundColor = .white
+            cell.textLabel?.textColor = .black
         }
         return cell
     }
@@ -82,33 +98,33 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.row)!")
-        coinCounter -= dataDic[indexPath.row]!.price
-        if dataDic[indexPath.row]?.name == "Torch" {
+        coinCounter -= shopList[indexPath.section][indexPath.row].price
+        if shopList[indexPath.section][indexPath.row].name == "Torch" {
             sceneDung.buyLights()
+            shopList[indexPath.section][indexPath.row].amount = 0
+        } else if shopList[indexPath.section][indexPath.row].name == "Doors" {
+            sceneDung.buyDoors()
+            shopList[indexPath.section][indexPath.row].amount = 0
+        } else if shopList[indexPath.section][indexPath.row].name == "Skeleton" {
+            sceneDung.skeletonSpawn()
         }
         self.reloadData()
-        //        ShopScene().view?.presentScene(CoinScene(size: (ShopScene().view?.frame.size)!))
         self.removeFromSuperview()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) { // CHANGE THE FONT HERE
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        if section == 0 {header.textLabel?.font = UIFont.boldSystemFont(ofSize: 40)}
+        else {header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 150))}
     }
     
     override func headerView(forSection section: Int) -> UITableViewHeaderFooterView? {
         let header: UITableViewHeaderFooterView = headerView(forSection: section)!
-        header.backgroundColor = .blue
         return header
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 { return 60}
+        if section == 0 { return 90 }
         return 30
     }
     
 }
-
-//class CustomCell: UITableViewCell {
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        style = .subtitle
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//}
