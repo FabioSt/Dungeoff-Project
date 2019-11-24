@@ -19,7 +19,7 @@ let tileSet = rockMap.tileSet
 
 // Tutorial Stuff
 var hintLabel: SKLabelNode = SKLabelNode()
-let hints: Array<String> = ["Shake to earn some coin", "Great, you can buy a torch!", "Swipe to Move", "Great"]
+let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Swipe to Move", "Great"]
 var tutorialCounter :Int = 0
 
 let skeletonHP = CGFloat(6)
@@ -187,7 +187,9 @@ class GameScene: SKScene {
         if skeletonNode.alpha == 0 { skeletonNode.removeFromParent() }
         
         if tutorialCounter == 4 {
-            hintLabel.text = hints[3]
+            hintLabel.text = hints[1]
+        } else if tutorialCounter == 6 {
+            hintLabel.text = hints[2]
         }
         
         if coinCounter > 10 {
@@ -405,14 +407,14 @@ class GameScene: SKScene {
     
     func tutorial() {
         
-        hintLabel.fontSize = 30
+        hintLabel.fontSize = 32
         hintLabel.fontName = "Savior4"
         hintLabel.fontColor = SKColor.white
         hintLabel.horizontalAlignmentMode = .center
         hintLabel.verticalAlignmentMode = .center
         hintLabel.zPosition = 99
         hintLabel.position = CGPoint(x: 0, y: -350)
-        hintLabel.text = hints[2]
+        hintLabel.text = hints[0]
         camera!.addChild(hintLabel)
         
     }
