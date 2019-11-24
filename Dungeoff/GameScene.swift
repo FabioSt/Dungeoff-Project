@@ -239,11 +239,12 @@ class GameScene: SKScene {
             }
         }
         if node === self.overImage {
-            let restart = GameScene(fileNamed: "Map")
-            restart?.scaleMode = SKSceneScaleMode.aspectFit
-            restart?.size = (view?.frame.size)!
-            view?.presentScene(restart!)
+            let restart = MenuScene()
+            restart.scaleMode = SKSceneScaleMode.aspectFit
+            restart.size = (view?.frame.size)!
+            view?.presentScene(restart)
             heroNode.position = rockMap.centerOfTile(atColumn: rockMap.numberOfRows/2 , row: rockMap.numberOfColumns/2)
+            coinCounter = 130
             //            heroSpawn()
         }
         if node === self.heroNode {

@@ -16,14 +16,16 @@ class MenuScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var background = SKSpriteNode(imageNamed: "bg")
+    let cameraNode = SKCameraNode()
     
     override func didMove(to view: SKView) {
         
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.6)
         let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.6)
         
-        
         menuMusic(father: self)
+        
+        cameraNode.position = .zero
         
         // set the background
         background.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)

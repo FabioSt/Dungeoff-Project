@@ -103,7 +103,8 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         
         print("You selected cell #\(indexPath.row)!")
         if shopList[indexPath.section][indexPath.row].price > coinCounter || shopList[indexPath.section][indexPath.row].soldOut { return }
-        else if shopList[indexPath.section][indexPath.row].name == "Torchs" {
+        
+        if shopList[indexPath.section][indexPath.row].name == "Torchs" {
             sceneDung.buyLights()
             shopList[indexPath.section][indexPath.row].amount = 0
         } else if shopList[indexPath.section][indexPath.row].name == "Doors" {
