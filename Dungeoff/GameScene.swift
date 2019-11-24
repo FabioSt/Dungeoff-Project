@@ -258,7 +258,6 @@ class GameScene: SKScene {
         
         if node === self.hint2 {
             posCenter.removeAllChildren()
-            print("STO FUNZIONANDO")
         }
         
         if node === self.overImage {
