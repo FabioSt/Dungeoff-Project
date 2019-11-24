@@ -18,7 +18,7 @@ var moveVector = CGVector(dx: 0, dy: 0)
 var skeletonBumpPosition = CGPoint.zero
 let tileSet = rockMap.tileSet
 
-var coinCounter:Int = 0
+var coinCounter:Int = 1500
 
 class GameScene: SKScene {
     
@@ -57,6 +57,7 @@ class GameScene: SKScene {
     let heroNode: Character = Character.init()
     let mapImage = UIImageView(frame: UIScreen.main.bounds)
     let overImage = SKSpriteNode(imageNamed: "gameover")
+    let overImage2 = SKSpriteNode(imageNamed: "demoover")
     var shop = SKSpriteNode()
     let motion = CMMotionManager()
     var timer = Timer()
@@ -374,11 +375,13 @@ class GameScene: SKScene {
     
     func buyTraps() {
         trapChecker = true
-        let columns = [16, 26, 24]
-        let rows = [22, 25, 23]
+         let columns = [16]
+        let rows = [22]
+//        let columns = [16, 26, 24]
+//        let rows = [22, 25, 23]
         
         for i in 0 ... columns.count-1  {
-        let trapsNode = SKSpriteNode(imageNamed: "trap-off")
+        let trapsNode = SKSpriteNode(imageNamed: "trap")
         
         // Load the first frame as initialization
         trapsNode.position = rockMap.centerOfTile(atColumn: columns[i], row: rows[i])
@@ -988,10 +991,10 @@ class GameScene: SKScene {
         removeAllChildren()
         removeAllActions()
         hitCounter = CGFloat(-1)
-        overImage.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
-        overImage.anchorPoint = CGPoint(x: 1, y:1)
-        overImage.size = view!.bounds.size
-        addChild(overImage)
+        overImage2.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        overImage2.anchorPoint = CGPoint(x: 1, y:1)
+        overImage2.size = view!.bounds.size
+        addChild(overImage2)
         view?.scene?.isPaused = false
         let wait = SKAction.wait(forDuration: 2)
         let reset = SKAction.run {
