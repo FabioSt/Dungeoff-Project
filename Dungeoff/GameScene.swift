@@ -196,7 +196,7 @@ class GameScene: SKScene {
         checkPositions()
         label.text = "\(coinCounter)"
         
-        if skeletonNode.alpha == 0 { skeletonNode.removeFromParent() }
+        if lifeBar.size == .zero { skeletonNode.removeFromParent() }
         
         
         if tutorialCounter == 4 {
