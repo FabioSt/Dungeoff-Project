@@ -11,10 +11,11 @@ import UIKit
 
 
 //let coinPic = UIImage(named: "coin")
-let skeletonPic = scaleDown(image: UIImage(named: "skeleton1")!, withSize: CGSize(width: 50, height: 50))
+let skeletonPic = scaleDown(image: UIImage(named: "skeletons-m")!, withSize: CGSize(width: 50, height: 50))
 let doorPic = scaleDown(image: UIImage(named: "door-m")!, withSize: CGSize(width: 50, height: 50))
 let torchPic = scaleDown(image: UIImage(named: "torch-m")!, withSize: CGSize(width: 50, height: 50))
-let chestPic = scaleDown(image: UIImage(named: "chest")!, withSize: CGSize(width: 50, height: 50))
+let chestPic = scaleDown(image: UIImage(named: "chest-m")!, withSize: CGSize(width: 50, height: 50))
+let trapsPic = scaleDown(image: UIImage(named: "traps-m")!, withSize: CGSize(width: 50, height: 50))
 let crystalPic = scaleDown(image: UIImage(named: "crystal-m")!, withSize: CGSize(width: 50, height: 50))
 var skeletonBought = false
 
@@ -27,7 +28,8 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     return newImage!
 }
 
-var shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torchs", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1000", name:"Chest", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+// EVERY TIME YOU CHANGE THIS, CHANGE ALSO IN GAME SCENE
+var shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:100, priceShow: "Earn 200", name: "Traps", soldOut: true, amount:0) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["The Soul Keeper","Environment","Enemies","Weapons"]
 
@@ -106,7 +108,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         print("You selected cell #\(indexPath.row)!")
         if shopList[indexPath.section][indexPath.row].price > coinCounter || shopList[indexPath.section][indexPath.row].soldOut { return }
         
-        if shopList[indexPath.section][indexPath.row].name == "Torchs" {
+        if shopList[indexPath.section][indexPath.row].name == "Torches" {
             sceneDung.buyLights()
             shopList[indexPath.section][indexPath.row].amount = 0
         } else if shopList[indexPath.section][indexPath.row].name == "Doors" {
@@ -115,11 +117,16 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         } else if shopList[indexPath.section][indexPath.row].name == "Skeletons" {
             //skeletonBought = true
             sceneDung.skeletonSpawn()
+            shopList[indexPath.section][indexPath.row].amount = 0
         } else if shopList[indexPath.section][indexPath.row].name == "Light Crystal" {
         //skeletonBought = true
             sceneDung.buyCrystal()
             shopList[indexPath.section][indexPath.row].amount = 0
-        }else if shopList[indexPath.section][indexPath.row].name == "Chest" {
+        }else if shopList[indexPath.section][indexPath.row].name == "Chests" {
+        //skeletonBought = true
+            sceneDung.buyChests()
+            shopList[indexPath.section][indexPath.row].amount = 0
+        }else if shopList[indexPath.section][indexPath.row].name == "Traps" {
         //skeletonBought = true
             sceneDung.buyChests()
             shopList[indexPath.section][indexPath.row].amount = 0

@@ -23,6 +23,8 @@ var coinCounter:Int = 1500
 class GameScene: SKScene {
     
     // Tutorial Stuff
+    let hint1 = SKSpriteNode(imageNamed: "hint1")
+    let hint2 = SKSpriteNode(imageNamed: "hint2")
     var hintLabel: SKLabelNode = SKLabelNode()
     let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Trade souls for a light crystal", "Great, it's time to buy doors!", "Go for the final chest", "It's all on you, now"]
     var tutorialCounter :Int = 0
@@ -45,6 +47,7 @@ class GameScene: SKScene {
     var trapChecker = false
     var tutChecker = false
     
+    let posCenter = SKSpriteNode()
     let devilEsclamation = SKLabelNode()
     var label = SKLabelNode(fontNamed: "Savior4")
     var esclamation = SKLabelNode(fontNamed: "Savior4")
@@ -246,6 +249,18 @@ class GameScene: SKScene {
                 heroAttack()
             }
         }
+        
+        if node === self.hint1 {
+            posCenter.removeAllChildren()
+            posCenter.addChild(hint2)
+         
+        }
+        
+        if node === self.hint2 {
+            posCenter.removeAllChildren()
+            print("STO FUNZIONANDO")
+        }
+        
         if node === self.overImage {
             let restart = MenuScene()
             restart.scaleMode = SKSceneScaleMode.aspectFit
@@ -673,6 +688,25 @@ class GameScene: SKScene {
     
     func skeletonSpawn(){
         
+        hint1.position = CGPoint(x: 0, y: 0)
+        hint1.zPosition = 1500
+        hint1.size.width = 405
+        hint1.size.height = 250
+        
+        posCenter.zPosition = 1500
+        posCenter.position = CGPoint(x:0, y:0)
+        camera!.addChild(posCenter)
+        posCenter.addChild(hint1)
+        
+//        camera!.addChild(hint1)
+
+        
+        hint2.position = CGPoint(x: 0, y: 0)
+        hint2.zPosition = 1501
+        hint2.size.width = 405
+        hint2.size.height = 250
+        
+        
         // 4 skel frames
         let skelf0 = SKTexture.init(imageNamed: "skeleton1")
         let skelf1 = SKTexture.init(imageNamed: "skeleton2")
@@ -1010,7 +1044,8 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torchs", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1000", name:"Chest", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:100, priceShow: "Earn 200", name: "Traps", soldOut: true, amount:0) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+
         
 //        coinCounter = 0  TO BE ADDED BEFORE RELEASE
         
