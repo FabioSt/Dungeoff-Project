@@ -18,7 +18,7 @@ var moveVector = CGVector(dx: 0, dy: 0)
 var skeletonBumpPosition = CGPoint.zero
 let tileSet = rockMap.tileSet
 
-var coinCounter:Int = 1500
+var coinCounter:Int = 0
 
 class GameScene: SKScene {
     
@@ -258,6 +258,7 @@ class GameScene: SKScene {
         
         if node === self.hint2 {
             posCenter.removeAllChildren()
+            skeletonSpawn()
         }
         
         if node === self.overImage {
@@ -684,26 +685,26 @@ class GameScene: SKScene {
         self.addChild(dragonNode)
     }
     
+    func hintSpawn() {
+         hint1.position = CGPoint(x: 0, y: 0)
+                hint1.zPosition = 1500
+                hint1.size.width = 405
+                hint1.size.height = 250
+                
+                posCenter.zPosition = 1500
+                posCenter.position = CGPoint(x:0, y:0)
+                camera!.addChild(posCenter)
+                posCenter.addChild(hint1)
+                
+        //        camera!.addChild(hint1)
+
+                hint2.position = CGPoint(x: 0, y: 0)
+                hint2.zPosition = 1501
+                hint2.size.width = 405
+                hint2.size.height = 250
+    }
     
     func skeletonSpawn(){
-        
-        hint1.position = CGPoint(x: 0, y: 0)
-        hint1.zPosition = 1500
-        hint1.size.width = 405
-        hint1.size.height = 250
-        
-        posCenter.zPosition = 1500
-        posCenter.position = CGPoint(x:0, y:0)
-        camera!.addChild(posCenter)
-        posCenter.addChild(hint1)
-        
-//        camera!.addChild(hint1)
-
-        
-        hint2.position = CGPoint(x: 0, y: 0)
-        hint2.zPosition = 1501
-        hint2.size.width = 405
-        hint2.size.height = 250
         
         
         // 4 skel frames

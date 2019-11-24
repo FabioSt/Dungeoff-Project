@@ -116,7 +116,7 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
             shopList[indexPath.section][indexPath.row].amount = 0
         } else if shopList[indexPath.section][indexPath.row].name == "Skeletons" {
             //skeletonBought = true
-            sceneDung.skeletonSpawn()
+            sceneDung.hintSpawn()
             shopList[indexPath.section][indexPath.row].amount = 0
         } else if shopList[indexPath.section][indexPath.row].name == "Light Crystal" {
         //skeletonBought = true
