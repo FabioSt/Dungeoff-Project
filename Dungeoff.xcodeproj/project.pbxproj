@@ -12,6 +12,10 @@
 		1D285EA8238890C100F2ADCA /* sprint.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1D285EA7238890C100F2ADCA /* sprint.mp3 */; };
 		1D285EAA2388913100F2ADCA /* slam.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1D285EA92388913000F2ADCA /* slam.mp3 */; };
 		1D86AC852384438D001FBAAD /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1D86AC842384438D001FBAAD /* hit.wav */; };
+		1D91F25C238A808D00626688 /* trap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1D91F25A238A808C00626688 /* trap.wav */; };
+		1D91F25D238A808D00626688 /* ambient.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1D91F25B238A808D00626688 /* ambient.mp3 */; };
+		1D91F25F238A81EF00626688 /* laugh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1D91F25E238A81EF00626688 /* laugh.wav */; };
+		1D91F261238A839A00626688 /* fadeout.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1D91F260238A839A00626688 /* fadeout.wav */; };
 		1DA0F4102383EBA600CA451D /* Savior4.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DA0F40F2383EBA600CA451D /* Savior4.ttf */; };
 		1DA0F4122383F19C00CA451D /* dash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1DA0F4112383F19C00CA451D /* dash.wav */; };
 		1DB6D7F32382D76300D13996 /* Sounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB6D7F22382D76200D13996 /* Sounds.swift */; };
@@ -39,6 +43,10 @@
 		1D285EA7238890C100F2ADCA /* sprint.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sprint.mp3; sourceTree = "<group>"; };
 		1D285EA92388913000F2ADCA /* slam.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = slam.mp3; sourceTree = "<group>"; };
 		1D86AC842384438D001FBAAD /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
+		1D91F25A238A808C00626688 /* trap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trap.wav; sourceTree = "<group>"; };
+		1D91F25B238A808D00626688 /* ambient.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ambient.mp3; sourceTree = "<group>"; };
+		1D91F25E238A81EF00626688 /* laugh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laugh.wav; sourceTree = "<group>"; };
+		1D91F260238A839A00626688 /* fadeout.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fadeout.wav; sourceTree = "<group>"; };
 		1DA0F40F2383EBA600CA451D /* Savior4.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Savior4.ttf; sourceTree = "<group>"; };
 		1DA0F4112383F19C00CA451D /* dash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dash.wav; sourceTree = "<group>"; };
 		1DB6D7F22382D76200D13996 /* Sounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sounds.swift; sourceTree = "<group>"; };
@@ -78,8 +86,12 @@
 			children = (
 				1D285EA523887F5200F2ADCA /* stomp.wav */,
 				1D285EA3238759FE00F2ADCA /* soul.wav */,
+				1D91F25E238A81EF00626688 /* laugh.wav */,
 				1D285EA92388913000F2ADCA /* slam.mp3 */,
 				4E901AC7238547FF00048FBC /* Slash.mp3 */,
+				1D91F25B238A808D00626688 /* ambient.mp3 */,
+				1D91F260238A839A00626688 /* fadeout.wav */,
+				1D91F25A238A808C00626688 /* trap.wav */,
 				1DD1E43D23873E5F000E9F8F /* pain.wav */,
 				1D86AC842384438D001FBAAD /* hit.wav */,
 				1D285EA7238890C100F2ADCA /* sprint.mp3 */,
@@ -197,11 +209,15 @@
 				1DD1E43E23873E60000E9F8F /* pain.wav in Resources */,
 				1DD579D32371D34D002BDA4C /* TileSet.sks in Resources */,
 				1D285EA8238890C100F2ADCA /* sprint.mp3 in Resources */,
+				1D91F25F238A81EF00626688 /* laugh.wav in Resources */,
 				1DA0F4122383F19C00CA451D /* dash.wav in Resources */,
+				1D91F261238A839A00626688 /* fadeout.wav in Resources */,
 				4EE07D0F237F0C9D00027046 /* MyActions.sks in Resources */,
 				1DD579C32371BB11002BDA4C /* Main.storyboard in Resources */,
 				1DD579C52371BB13002BDA4C /* Assets.xcassets in Resources */,
 				1DD579C82371BB13002BDA4C /* LaunchScreen.storyboard in Resources */,
+				1D91F25D238A808D00626688 /* ambient.mp3 in Resources */,
+				1D91F25C238A808D00626688 /* trap.wav in Resources */,
 				1DA0F4102383EBA600CA451D /* Savior4.ttf in Resources */,
 				1DD579D42371D34D002BDA4C /* Assets.xcassets in Resources */,
 			);

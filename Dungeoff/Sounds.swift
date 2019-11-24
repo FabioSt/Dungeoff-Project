@@ -41,3 +41,11 @@ func menuMusic(father: SKNode) {
                 father.addChild(backgroundMusic)
             }
 }
+
+func gameMusic(father: SKNode) {
+    var backgroundMusic: SKAudioNode!
+            if let musicURL = Bundle.main.url(forResource: "ambient", withExtension: "mp3") {
+                backgroundMusic = SKAudioNode(url: musicURL)
+                father.addChild(backgroundMusic)
+            }
+}

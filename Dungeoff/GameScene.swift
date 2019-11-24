@@ -58,7 +58,7 @@ class GameScene: SKScene {
     let motion = CMMotionManager()
     var timer = Timer()
     
-    var walkableTiles = ["A1", "A2", "A3", "B1", "B2", "B3","C1","C2","C3"]
+    var walkableTiles = ["A1", "A2", "A3", "B1", "B2", "B3","C1","C2","C3", "FAA1", "FAA2", "FAA3", "FBA1","FBA2","FBA3","FBA2v2","FBA2v3","FBA2v3","FBAv6","FCA1","FCA2","FCA3"]
     
     func checkPositions() {
         if comparePositionRound(position1: heroNode.position, position2: skeletonNode.position) {
@@ -75,6 +75,7 @@ class GameScene: SKScene {
             devilNode.run(.fadeAlpha(to: 0, duration: 2))
             devilNode.run(.moveBy(x: 0, y: 400, duration: 3))
             devilEsclamation.text = "HOW DARE YOU!"
+            devilNode.run(.playSoundFileNamed("fadeout", waitForCompletion: false))
         }
         
         
@@ -91,6 +92,7 @@ class GameScene: SKScene {
                 buyTraps()
                 bump(node: heroNode, arrivingDirection: CGVector(dx: 0, dy: -rockMap.tileSize.height))
                 devilSpawn()
+                devilNode.run(.playSoundFileNamed("laugh", waitForCompletion: true))
             }
         }
         
@@ -347,7 +349,7 @@ class GameScene: SKScene {
         trapsNode.lightingBitMask = 0b0001
                    
         // Change the frame per 0.2 sec
-            trapsNode.run(.sequence([.fadeAlpha(to: 0, duration: 0), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 1.5), .fadeAlpha(to: 0, duration: 0.2)]))
+            trapsNode.run(.sequence([.fadeAlpha(to: 0, duration: 0),.playSoundFileNamed("trap", waitForCompletion: false), .fadeAlpha(to: 1, duration: 0.2), .wait(forDuration: 1.5), .fadeAlpha(to: 0, duration: 0.2)]))
         self.addChild(trapsNode)
         }
     }
@@ -949,7 +951,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        //        menuMusic(father: self)
+        gameMusic(father: self)
         
         backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
         addSwipe()
