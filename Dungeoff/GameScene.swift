@@ -18,7 +18,7 @@ var moveVector = CGVector(dx: 0, dy: 0)
 var skeletonBumpPosition = CGPoint.zero
 let tileSet = rockMap.tileSet
 
-var coinCounter:Int = 130
+var coinCounter:Int = 0
 
 class GameScene: SKScene {
     
@@ -374,11 +374,11 @@ class GameScene: SKScene {
     
     func buyTraps() {
         trapChecker = true
-        let columns = [16]
-        let rows = [22]
+        let columns = [16, 26, 24]
+        let rows = [22, 25, 23]
         
         for i in 0 ... columns.count-1  {
-        let trapsNode = SKSpriteNode(imageNamed: "trap")
+        let trapsNode = SKSpriteNode(imageNamed: "trap-off")
         
         // Load the first frame as initialization
         trapsNode.position = rockMap.centerOfTile(atColumn: columns[i], row: rows[i])
@@ -1007,13 +1007,15 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torchs", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torchs", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1000", name:"Chest", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
         
 //        coinCounter = 0  TO BE ADDED BEFORE RELEASE
         
         backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
         addSwipe()
         camera!.setScale(1.2)
+        
+        gameMusic(father: self)
         
         heartContainers = SKSpriteNode(imageNamed: "3of3")
         
@@ -1052,8 +1054,6 @@ class GameScene: SKScene {
         coinSpawn()
         hearts()
         tutorial()
-        
-        buyChests()
         
         shop = SKSpriteNode(imageNamed: "shop")
         shop.position = .init(x: 160, y: 370)

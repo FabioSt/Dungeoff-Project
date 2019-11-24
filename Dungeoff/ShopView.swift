@@ -14,6 +14,8 @@ import UIKit
 let skeletonPic = scaleDown(image: UIImage(named: "skeleton1")!, withSize: CGSize(width: 50, height: 50))
 let doorPic = scaleDown(image: UIImage(named: "door-m")!, withSize: CGSize(width: 50, height: 50))
 let torchPic = scaleDown(image: UIImage(named: "torch-m")!, withSize: CGSize(width: 50, height: 50))
+let chestPic = scaleDown(image: UIImage(named: "chest")!, withSize: CGSize(width: 50, height: 50))
+let crystalPic = scaleDown(image: UIImage(named: "crystal-m")!, withSize: CGSize(width: 50, height: 50))
 var skeletonBought = false
 
 func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
@@ -25,7 +27,7 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     return newImage!
 }
 
-var shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torchs", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+var shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torchs", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1000", name:"Chest", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["The Soul Keeper","Environment","Enemies","Weapons"]
 
@@ -117,7 +119,13 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         //skeletonBought = true
             sceneDung.buyCrystal()
             shopList[indexPath.section][indexPath.row].amount = 0
+        }else if shopList[indexPath.section][indexPath.row].name == "Chest" {
+        //skeletonBought = true
+            sceneDung.buyChests()
+            shopList[indexPath.section][indexPath.row].amount = 0
         }
+        
+        
         coinCounter -= shopList[indexPath.section][indexPath.row].price
         self.reloadData()
         self.removeFromSuperview()
