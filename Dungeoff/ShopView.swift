@@ -25,7 +25,7 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     return newImage!
 }
 
-var shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"-10", name: "Torch", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "-100", name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "+50", name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+var shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"-10", name: "Torchs", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "-100", name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "+50", name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["The Soul Keeper","Environment","Enemies","Weapons"]
 
@@ -59,9 +59,10 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         super.init(frame: frame, style: .plain)
         self.delegate = self
         self.dataSource = self
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
         //        self.backgroundView?.colo
     }
-
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -99,9 +100,10 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         return sectionList[section]
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         print("You selected cell #\(indexPath.row)!")
         if shopList[indexPath.section][indexPath.row].price > coinCounter || shopList[indexPath.section][indexPath.row].soldOut { return }
-        else if shopList[indexPath.section][indexPath.row].name == "Torch" {
+        else if shopList[indexPath.section][indexPath.row].name == "Torchs" {
             sceneDung.buyLights()
             shopList[indexPath.section][indexPath.row].amount = 0
         } else if shopList[indexPath.section][indexPath.row].name == "Doors" {
@@ -131,5 +133,5 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         if section == 0 { return 50 }
         return 30
     }
-    
+
 }

@@ -19,7 +19,8 @@ let tileSet = rockMap.tileSet
 
 // Tutorial Stuff
 var hintLabel: SKLabelNode = SKLabelNode()
-let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Swipe to Move", "Great"]
+let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Trade some souls for torchs", "Great"]
+
 var tutorialCounter :Int = 0
 
 let skeletonHP = CGFloat(6)
@@ -192,6 +193,8 @@ class GameScene: SKScene {
             hintLabel.text = hints[1]
         } else if tutorialCounter == 6 {
             hintLabel.text = hints[2]
+        } else if (tutorialCounter >= 7) && (coinCounter > 10) {
+            hintLabel.text = hints[3]
         }
         
         if coinCounter > 10 {
@@ -228,9 +231,9 @@ class GameScene: SKScene {
             //            heroSpawn()
         }
         if node === self.heroNode {
-            lightNode.run(.falloff(to: 1, duration: 0.2))
-            lightNode.falloff = 1
-            lightNode.lightColor = #colorLiteral(red: 0.7681630254, green: 0.9664419293, blue: 1, alpha: 1)
+//            lightNode.run(.falloff(to: 1, duration: 0.2))
+//            lightNode.falloff = 1
+//            lightNode.lightColor = #colorLiteral(red: 0.7681630254, green: 0.9664419293, blue: 1, alpha: 1)
             
         }
         if node === self.shop {
