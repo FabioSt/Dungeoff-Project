@@ -29,7 +29,7 @@ class GameScene: SKScene {
     let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Trade souls for a light crystal", "Great, it's time to buy doors!", "Go for the final chest", "It's all on you, now"]
     var tutorialCounter :Int = 0
 
-    let skeletonHP = CGFloat(6)
+    let skeletonHP = CGFloat(4)
     var hitCounter = CGFloat(0)
 
     let lightNode = SKLightNode()
@@ -267,7 +267,7 @@ class GameScene: SKScene {
             restart.size = (view?.frame.size)!
             view?.presentScene(restart)
             heroNode.position = rockMap.centerOfTile(atColumn: rockMap.numberOfRows/2 , row: rockMap.numberOfColumns/2)
-            coinCounter = 130
+            
             //            heroSpawn()
         }
         if node === self.heroNode {
@@ -436,18 +436,18 @@ class GameScene: SKScene {
     
     func checkHP(){
         if lifeBar.size.width == .zero {
-            coinCounter += 100
+            coinCounter += 1000
             lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 1), completion: {
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.5), completion: {
                 self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
             })
             
             //            skeletonNode.removeFromParent()
             return
         } else if hitCounter >= skeletonHP {
-            coinCounter += 100
+            coinCounter += 1000
             lifeBar.removeFromParent()
-            skeletonNode.run(.fadeAlpha(to: 0, duration: 1), completion: {
+            skeletonNode.run(.fadeAlpha(to: 0, duration: 0.5), completion: {
                 self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
             })
             
@@ -1044,10 +1044,10 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:100, priceShow: "Earn 200", name: "Traps", soldOut: true, amount:0) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:100, priceShow: "Earn 200", name: "Traps", soldOut: true, amount:0) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -70, priceShow: "Earn 70 Souls - Kill it for 1.000", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
         
-//        coinCounter = 0  TO BE ADDED BEFORE RELEASE
+        coinCounter = 0
         
         backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
         addSwipe()
