@@ -17,27 +17,29 @@ var currentColumn = rockMap.numberOfRows/2 + 1
 var moveVector = CGVector(dx: 0, dy: 0)
 let tileSet = rockMap.tileSet
 
-// Tutorial Stuff
-var hintLabel: SKLabelNode = SKLabelNode()
-let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Trade some souls for torchs", "Great"]
-
-var tutorialCounter :Int = 0
-
-let skeletonHP = CGFloat(6)
-var hitCounter = CGFloat(0)
-
-let lightNode = SKLightNode()
-
-var gesture = UISwipeGestureRecognizer()
-
-var shopView = ShopView()
-
-var cont = 0 // counter for BUMP action
-var coinCounter:Int = 130
-
-var heartContainers = SKSpriteNode(imageNamed: "3of3")
+    var coinCounter:Int = 130
 
 class GameScene: SKScene {
+    
+    // Tutorial Stuff
+    var hintLabel: SKLabelNode = SKLabelNode()
+    let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Trade some souls for torchs", "Great"]
+
+    var tutorialCounter :Int = 0
+
+    let skeletonHP = CGFloat(6)
+    var hitCounter = CGFloat(0)
+
+    let lightNode = SKLightNode()
+
+    var gesture = UISwipeGestureRecognizer()
+
+    var shopView = ShopView()
+
+    var cont = 0 // counter for BUMP action
+
+
+    var heartContainers = SKSpriteNode(imageNamed: "3of3")
     
     var chestChecker = false // check if dragon should be spawn
     var dragonChecker = false

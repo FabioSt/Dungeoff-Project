@@ -11,9 +11,9 @@ import UIKit
 
 
 //let coinPic = UIImage(named: "coin")
-let skeletonPic = scaleDown(image: UIImage(named: "skeleton1")!, withSize: CGSize(width: 20, height: 20))
-let doorPic = scaleDown(image: UIImage(named: "door")!, withSize: CGSize(width: 20, height: 20))
-let torchPic = scaleDown(image: UIImage(named: "torch00")!, withSize: CGSize(width: 20, height: 20))
+let skeletonPic = scaleDown(image: UIImage(named: "skeleton1")!, withSize: CGSize(width: 50, height: 50))
+let doorPic = scaleDown(image: UIImage(named: "door-m")!, withSize: CGSize(width: 50, height: 50))
+let torchPic = scaleDown(image: UIImage(named: "torch-m")!, withSize: CGSize(width: 50, height: 50))
 var skeletonBought = false
 
 func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
