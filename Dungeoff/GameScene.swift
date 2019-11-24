@@ -15,6 +15,7 @@ var waterMap : SKTileMapNode = SKTileMapNode()
 var currentRow = rockMap.numberOfColumns/2
 var currentColumn = rockMap.numberOfRows/2 + 1
 var moveVector = CGVector(dx: 0, dy: 0)
+var skeletonBumpPosition = CGPoint.zero
 let tileSet = rockMap.tileSet
 
 var coinCounter:Int = 130
@@ -65,7 +66,13 @@ class GameScene: SKScene {
     func checkPositions() {
         if comparePositionRound(position1: heroNode.position, position2: skeletonNode.position) {
             // attack(targetPosition: skeletonNode.position)
-            bump(node: heroNode, arrivingDirection: moveVector)
+            let destinationPoint = CGPoint(x: heroNode.position.x - moveVector.dx, y: heroNode.position.y - moveVector.dy)
+            if onLand(characterPosition: destinationPoint, map: rockMap) {
+                bump(node: heroNode, arrivingDirection: moveVector)
+            } else {
+                skeletonNode.run(.move(to: skeletonBumpPosition, duration: 0.1))
+                bump(node: heroNode, arrivingDirection: .zero)
+            }
             checkHP()
             print("move Vector is \(moveVector)")
         } else if comparePositionRound(position1: heroNode.position, position2: devilNode.position) {
@@ -717,20 +724,24 @@ class GameScene: SKScene {
             if distanceX > 0 {
                 let destinationPoint = CGPoint(x: skeletonNode.position.x + travelDistanceX, y: skeletonNode.position.y)
                 if !onLand(characterPosition: destinationPoint, map: rockMap) { return .wait(forDuration: 0.2) }
+                skeletonBumpPosition = skeletonNode.position
                 return .moveBy(x: travelDistanceX, y: 0, duration: 0.2)
             } else {
                 let destinationPoint = CGPoint(x: skeletonNode.position.x - travelDistanceX, y: skeletonNode.position.y)
                 if !onLand(characterPosition: destinationPoint, map: rockMap) { return .wait(forDuration: 0.2) }
+                skeletonBumpPosition = skeletonNode.position
                 return .moveBy(x: -travelDistanceX, y: 0, duration: 0.2)
             }
         } else if abs(distanceX) <= abs(distanceY) && distanceY != 0 {
             if distanceY > 0 {
                 let destinationPoint = CGPoint(x: skeletonNode.position.x, y: skeletonNode.position.y + travelDistanceY)
                 if !onLand(characterPosition: destinationPoint, map: rockMap) { return .wait(forDuration: 0.2) }
+                skeletonBumpPosition = skeletonNode.position
                 return .moveBy(x: 0, y: travelDistanceY, duration: 0.2)
             } else {
                 let destinationPoint = CGPoint(x: skeletonNode.position.x, y: skeletonNode.position.y - travelDistanceY)
                 if !onLand(characterPosition: destinationPoint, map: rockMap) { return .wait(forDuration: 0.2) }
+                skeletonBumpPosition = skeletonNode.position
                 return .moveBy(x: 0, y: -travelDistanceY, duration: 0.2)
             }
         }
