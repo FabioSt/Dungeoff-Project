@@ -25,7 +25,7 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     return newImage!
 }
 
-var shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"-10", name: "Torchs", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "-100", name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "+50", name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+var shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"Spend 10", name: "Torchs", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["The Soul Keeper","Environment","Enemies","Weapons"]
 
