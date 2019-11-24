@@ -17,14 +17,13 @@ var currentColumn = rockMap.numberOfRows/2 + 1
 var moveVector = CGVector(dx: 0, dy: 0)
 let tileSet = rockMap.tileSet
 
-    var coinCounter:Int = 130
+var coinCounter:Int = 130
 
 class GameScene: SKScene {
     
     // Tutorial Stuff
     var hintLabel: SKLabelNode = SKLabelNode()
-    let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Trade some souls for torchs", "Great"]
-
+    let hints: Array<String> = ["Swipe to Move", "Great", "Shake to earn souls", "Trade souls for a light crystal", "Great, it's time to buy doors!", "Go for the final chest", "It's all on you, now"]
     var tutorialCounter :Int = 0
 
     let skeletonHP = CGFloat(6)
@@ -38,12 +37,12 @@ class GameScene: SKScene {
 
     var cont = 0 // counter for BUMP action
 
-
     var heartContainers = SKSpriteNode(imageNamed: "3of3")
     
     var chestChecker = false // check if dragon should be spawn
     var dragonChecker = false
     var trapChecker = false
+    var tutChecker = false
     
     let devilEsclamation = SKLabelNode()
     var label = SKLabelNode(fontNamed: "Savior4")
@@ -191,12 +190,17 @@ class GameScene: SKScene {
         
         if skeletonNode.alpha == 0 { skeletonNode.removeFromParent() }
         
+        
         if tutorialCounter == 4 {
             hintLabel.text = hints[1]
         } else if tutorialCounter == 6 {
             hintLabel.text = hints[2]
         } else if (tutorialCounter >= 7) && (coinCounter > 10) {
-            hintLabel.text = hints[3]
+           
+            if tutChecker == false {
+                tutChecker = true
+                hintLabel.text = hints[3]
+            }
         }
         
         if coinCounter > 10 {
@@ -233,9 +237,6 @@ class GameScene: SKScene {
             //            heroSpawn()
         }
         if node === self.heroNode {
-//            lightNode.run(.falloff(to: 1, duration: 0.2))
-//            lightNode.falloff = 1
-//            lightNode.lightColor = #colorLiteral(red: 0.7681630254, green: 0.9664419293, blue: 1, alpha: 1)
             
         }
         if node === self.shop {
@@ -291,8 +292,22 @@ class GameScene: SKScene {
         lightNode.isEnabled = false
     }
     
+    func buyCrystal() {
+            hintLabel.text = hints[4]
+            lightNode.run(.falloff(to: 1, duration: 0.2))
+            lightNode.falloff = 1
+            lightNode.lightColor = #colorLiteral(red: 0.7681630254, green: 0.9664419293, blue: 1, alpha: 1)
+    }
+    
     func buyDoors() {
            
+        hintLabel.text = hints[5]
+        let seq = SKAction.sequence([.wait(forDuration: 3), .fadeAlpha(to: 0, duration: 0.1)])
+        hintLabel.run(SKAction.sequence([seq]),completion: {
+             self.hintLabel.text = self.hints[6]
+            self.hintLabel.run(SKAction.sequence([.fadeAlpha(to: 1, duration: 0.1), .wait(forDuration: 3), .fadeAlpha(to: 0, duration: 0.1)]))
+        })
+        
            let columns = [16, 16, 25, 25]
               let rows = [17, 21, 27, 31]
         walkableTiles.append("WA2-door")
@@ -956,7 +971,9 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        gameMusic(father: self)
+        shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torchs", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+        
+//        coinCounter = 0  TO BE ADDED BEFORE RELEASE
         
         backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
         addSwipe()

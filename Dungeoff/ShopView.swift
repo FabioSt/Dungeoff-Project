@@ -25,7 +25,7 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
     return newImage!
 }
 
-var shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"Spend 10", name: "Torchs", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeleton", soldOut: false, amount: .infinity)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+var shopList = [[],[SoldProduct(image: torchPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torchs", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["The Soul Keeper","Environment","Enemies","Weapons"]
 
@@ -54,7 +54,7 @@ struct SoldProduct {
 class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
     
 //    @IBOutlet weak var shopTable: UITableView!
-    
+        
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: .plain)
         self.delegate = self
@@ -109,9 +109,13 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         } else if shopList[indexPath.section][indexPath.row].name == "Doors" {
             sceneDung.buyDoors()
             shopList[indexPath.section][indexPath.row].amount = 0
-        } else if shopList[indexPath.section][indexPath.row].name == "Skeleton" {
+        } else if shopList[indexPath.section][indexPath.row].name == "Skeletons" {
             //skeletonBought = true
             sceneDung.skeletonSpawn()
+        } else if shopList[indexPath.section][indexPath.row].name == "Light Crystal" {
+        //skeletonBought = true
+            sceneDung.buyCrystal()
+            shopList[indexPath.section][indexPath.row].amount = 0
         }
         coinCounter -= shopList[indexPath.section][indexPath.row].price
         self.reloadData()
