@@ -97,80 +97,87 @@ class GameScene: SKScene {
             }
         }
         
-        
-        // DOOR 1 TELEPORT
-        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).y.rounded() {
-            let destination = rockMap.centerOfTile(atColumn: 16, row: 22)
-            view?.isUserInteractionEnabled = false
-//            heroNode.position = destination
-            let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
-            heroNode.run(animation, completion: {
-                self.view?.isUserInteractionEnabled = true
-            })
-        }
-        
-        // DOOR 2 TELEPORT
-        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).y.rounded() {
-                    let destination = rockMap.centerOfTile(atColumn: 16, row: 16)
-        //            heroNode.position = destination
-            view?.isUserInteractionEnabled = false
-                    //         heroNode.position = destination
+        doorTeleport(user: heroNode)
+    }
+    
+    func doorTeleport(user: SKSpriteNode) {
+                // DOOR 1 TELEPORT
+                if user.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).x.rounded() && user.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 17).y.rounded() {
+                    let destination = rockMap.centerOfTile(atColumn: 16, row: 22)
+                    view?.isUserInteractionEnabled = false
+                    user.removeAction(forKey: "chase")                            //            user.position = destination
+        //            user.position = destination
                     let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
-                    heroNode.run(animation, completion: {
-                        self.view?.isUserInteractionEnabled = true
-                })
-            }
-        
-        // DOOR 3 TELEPORT
-        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).y.rounded() {
-           // if skeletonBought { skeletonSpawn() }
-                    let destination = rockMap.centerOfTile(atColumn: 23, row: 24)
-        //            heroNode.position = destination
-            view?.isUserInteractionEnabled = false
-            //            heroNode.position = destination
-                    let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
-                    heroNode.run(animation, completion: {
-                        self.view?.isUserInteractionEnabled = true
-                    })
-            }
-        
-        // DOOR 4 TELEPORT
-        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).y.rounded() {
-                    let destination = rockMap.centerOfTile(atColumn: 18, row: 24)
-        //            heroNode.position = destination
-            view?.isUserInteractionEnabled = false
-                    //            heroNode.position = destination
-                let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
-                    heroNode.run(animation, completion: {
+                    user.run(animation, completion: {
                         self.view?.isUserInteractionEnabled = true
                     })
                 }
-        
-        // DOOR 5 TELEPORT
-        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).y.rounded() {
-                    
-                    let destination = rockMap.centerOfTile(atColumn: 25, row: 32)
-        //            heroNode.position = destination
-                view?.isUserInteractionEnabled = false
-                    //            heroNode.position = destination
-                    let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
-                    heroNode.run(animation, completion: {
-                        self.view?.isUserInteractionEnabled = true
-                    })
-                }
-        
-        // DOOR 6 TELEPORT
-        if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).y.rounded() {
-                    let destination = rockMap.centerOfTile(atColumn: 25, row: 26)
-        //            heroNode.position = destination
-            view?.isUserInteractionEnabled = false
-            //            heroNode.position = destination
-                        let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
-                        heroNode.run(animation, completion: {
-                            self.view?.isUserInteractionEnabled = true
+                
+                // DOOR 2 TELEPORT
+                if user.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).x.rounded() && user.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 21).y.rounded() {
+                            let destination = rockMap.centerOfTile(atColumn: 16, row: 16)
+                //            user.position = destination
+                    view?.isUserInteractionEnabled = false
+                    user.removeAction(forKey: "chase")                            //            user.position = destination
+                            //         user.position = destination
+                            let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                            user.run(animation, completion: {
+                                self.view?.isUserInteractionEnabled = true
                         })
-                }
-        
+                    }
+                
+                // DOOR 3 TELEPORT
+                if user.position.x.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).x.rounded() && user.position.y.rounded() == rockMap.centerOfTile(atColumn: 19, row: 24).y.rounded() {
+                   // if skeletonBought { skeletonSpawn() }
+                            let destination = rockMap.centerOfTile(atColumn: 23, row: 24)
+                //            user.position = destination
+                    view?.isUserInteractionEnabled = false
+                    user.removeAction(forKey: "chase")                            //            user.position = destination
+                    //            user.position = destination
+                            let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                            user.run(animation, completion: {
+                                self.view?.isUserInteractionEnabled = true
+                            })
+                    }
+                
+                // DOOR 4 TELEPORT
+                if user.position.x.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).x.rounded() && user.position.y.rounded() == rockMap.centerOfTile(atColumn: 22, row: 24).y.rounded() {
+                            let destination = rockMap.centerOfTile(atColumn: 18, row: 24)
+                //            user.position = destination
+                    view?.isUserInteractionEnabled = false
+                    user.removeAction(forKey: "chase")                            //            user.position = destination
+                            //            user.position = destination
+                        let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                            user.run(animation, completion: {
+                                self.view?.isUserInteractionEnabled = true
+                            })
+                        }
+                
+                // DOOR 5 TELEPORT
+                if user.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).x.rounded() && user.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 27).y.rounded() {
+                            
+                            let destination = rockMap.centerOfTile(atColumn: 25, row: 32)
+                //            user.position = destination
+                        view?.isUserInteractionEnabled = false
+                    user.removeAction(forKey: "chase")                            //            user.position = destination
+                            let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                            user.run(animation, completion: {
+                                self.view?.isUserInteractionEnabled = true
+                            })
+                        }
+                
+                // DOOR 6 TELEPORT
+                if user.position.x.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).x.rounded() && user.position.y.rounded() == rockMap.centerOfTile(atColumn: 25, row: 31).y.rounded() {
+                            let destination = rockMap.centerOfTile(atColumn: 25, row: 26)
+                //            user.position = destination
+                    view?.isUserInteractionEnabled = false
+                    user.removeAction(forKey: "chase")
+                    //            user.position = destination
+                                let animation = SKAction.sequence([.fadeAlpha(to: 0, duration: 0), .move(to: destination, duration: 0.3), .fadeAlpha(to: 1, duration: 0.15)])
+                                user.run(animation, completion: {
+                                    self.view?.isUserInteractionEnabled = true
+                                })
+                        }
     }
     
     override func update(_ currentTime: CFTimeInterval)
@@ -179,6 +186,7 @@ class GameScene: SKScene {
         
         let lifeBarPosition = CGPoint(x: skeletonNode.position.x, y: skeletonNode.position.y + skeletonNode.size.height)
         lifeBar.position = lifeBarPosition
+        lifeBar.alpha = skeletonNode.alpha
         
         lightNode.position = heroNode.position
         
@@ -186,8 +194,6 @@ class GameScene: SKScene {
         camera?.position = heroNode.position
         checkPositions()
         label.text = "\(coinCounter)"
-        
-        if skeletonNode.alpha == 0 { skeletonNode.removeFromParent() }
         
         if tutorialCounter == 4 {
             hintLabel.text = hints[1]
@@ -200,6 +206,8 @@ class GameScene: SKScene {
         if coinCounter > 10 {
             shop.run(.fadeAlpha(to: 1, duration: 2.5))
         }
+
+        doorTeleport(user: skeletonNode)
         
         if self.children.contains(skeletonNode) && (skeletonNode.action(forKey: "chase") == nil){
             skeletonNode.run(.sequence([chaseHero(hunterNode: skeletonNode, huntedNode: heroNode), .wait(forDuration: 1)]), withKey: "chase")
@@ -683,14 +691,28 @@ class GameScene: SKScene {
         let travelDistanceX = rockMap.tileSize.width
         let travelDistanceY = rockMap.tileSize.height
         
+//        if (onLand(characterPosition: newPosition, map: rockMap) == false){return}
+        
         if abs(distanceX) > abs(distanceY) && distanceX != 0 {
             if distanceX > 0 {
+                let destinationPoint = CGPoint(x: skeletonNode.position.x + travelDistanceX, y: skeletonNode.position.y)
+                if !onLand(characterPosition: destinationPoint, map: rockMap) { return .wait(forDuration: 0.2) }
                 return .moveBy(x: travelDistanceX, y: 0, duration: 0.2)
-            } else { return .moveBy(x: -travelDistanceX, y: 0, duration: 0.2) }
+            } else {
+                let destinationPoint = CGPoint(x: skeletonNode.position.x - travelDistanceX, y: skeletonNode.position.y)
+                if !onLand(characterPosition: destinationPoint, map: rockMap) { return .wait(forDuration: 0.2) }
+                return .moveBy(x: -travelDistanceX, y: 0, duration: 0.2)
+            }
         } else if abs(distanceX) <= abs(distanceY) && distanceY != 0 {
             if distanceY > 0 {
+                let destinationPoint = CGPoint(x: skeletonNode.position.x, y: skeletonNode.position.y + travelDistanceY)
+                if !onLand(characterPosition: destinationPoint, map: rockMap) { return .wait(forDuration: 0.2) }
                 return .moveBy(x: 0, y: travelDistanceY, duration: 0.2)
-            } else { return .moveBy(x: 0, y: -travelDistanceY, duration: 0.2) }
+            } else {
+                let destinationPoint = CGPoint(x: skeletonNode.position.x, y: skeletonNode.position.y - travelDistanceY)
+                if !onLand(characterPosition: destinationPoint, map: rockMap) { return .wait(forDuration: 0.2) }
+                return .moveBy(x: 0, y: -travelDistanceY, duration: 0.2)
+            }
         }
         return .moveBy(x: 0, y: 0, duration: 0)
     }
@@ -995,7 +1017,6 @@ class GameScene: SKScene {
         heroSpawn()
         heroEsclamation()
         coinSpawn()
-//        skeletonSpawn()
         hearts()
         tutorial()
         
