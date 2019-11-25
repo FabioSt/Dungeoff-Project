@@ -30,7 +30,7 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
 }
 
 // EVERY TIME YOU CHANGE THIS, CHANGE ALSO IN GAME SCENE
-var shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:100, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -70, priceShow: "Earn 70 Souls - Kill it for 1.000", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+var shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:100, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50 Souls - Kill it for 1.000", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["The Soul Keeper","Environment","Enemies","Weapons"]
 
@@ -89,7 +89,11 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         cell.textLabel?.text = shopList[indexPath.section][indexPath.row].name
         cell.imageView?.image = shopList[indexPath.section][indexPath.row].image
         cell.detailTextLabel?.text = "\(String(describing: shopList[indexPath.section][indexPath.row].priceShow)) Souls"
-        cell.detailTextLabel?.textColor = .black
+        if shopList[indexPath.section][indexPath.row].price > 0 {
+            cell.detailTextLabel?.textColor = .red
+        } else if shopList[indexPath.section][indexPath.row].price <= 0 {
+            cell.detailTextLabel?.textColor = #colorLiteral(red: 0, green: 0.8923576474, blue: 0.3398946524, alpha: 1)
+        }
         cell.textLabel?.textColor = .black
         shopList[indexPath.section][indexPath.row].isSoldOut()
         if shopList[indexPath.section][indexPath.row].soldOut {
