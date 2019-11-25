@@ -18,7 +18,7 @@ var moveVector = CGVector(dx: 0, dy: 0)
 var skeletonBumpPosition = CGPoint.zero
 let tileSet = rockMap.tileSet
 
-var coinCounter:Int = 100000
+var coinCounter:Int = 0
 
 class GameScene: SKScene {
     
@@ -1138,7 +1138,7 @@ class GameScene: SKScene {
         shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: healPic, price: 100, priceShow: "Spend 100", name: "Healing Spot", soldOut: false, amount:1) ,SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price: -200, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50 Souls - Kill each for 300", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
         
         
-        coinCounter = 10000
+        coinCounter = 0
         
         backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
         addSwipe()
