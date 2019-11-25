@@ -47,6 +47,7 @@ class GameScene: SKScene {
     var trapChecker = false
     var devilChecker = false
     var tutChecker = false
+    var devilFade = false
     
     let posCenter = SKSpriteNode()
     let devilEsclamation = SKLabelNode()
@@ -82,6 +83,8 @@ class GameScene: SKScene {
             print("move Vector is \(moveVector)")
         } else if comparePositionRound(position1: heroNode.position, position2: devilNode.position) {
             // attack(targetPosition: skeletonNode.position)
+            if devilFade == false {
+                devilFade = true
             bumpNoDmg(node: heroNode, arrivingDirection: moveVector)
             heroNode.health += 1
             devilEsclamation.removeAction(forKey: "devilDialog")
@@ -90,6 +93,7 @@ class GameScene: SKScene {
             devilNode.run(.moveBy(x: 0, y: 400, duration: 3))
             devilEsclamation.text = "HOW DARE YOU!"
             devilNode.run(.playSoundFileNamed("fadeout", waitForCompletion: false))
+            }
         }
         
         
@@ -289,8 +293,19 @@ class GameScene: SKScene {
             }
         }
         
-        if node === self.heroNode {
-            
+        if node === self.devilNode {
+            if devilFade == false {
+                devilFade = true
+                // attack(targetPosition: skeletonNode.position)
+                bumpNoDmg(node: heroNode, arrivingDirection: moveVector)
+                heroNode.health += 1
+                devilEsclamation.removeAction(forKey: "devilDialog")
+                devilNode.run(.fadeAlpha(to: 1, duration: 0))
+                devilNode.run(.fadeAlpha(to: 0, duration: 2))
+                devilNode.run(.moveBy(x: 0, y: 400, duration: 3))
+                devilEsclamation.text = "HOW DARE YOU!"
+                devilNode.run(.playSoundFileNamed("fadeout", waitForCompletion: false))
+            }
                }
         
         if node === self.hint1 {
@@ -455,11 +470,32 @@ class GameScene: SKScene {
     
     func buyHeal() {
         
-        let healNode = SKSpriteNode(imageNamed: "chest")
+        let healNode = SKSpriteNode(imageNamed: "heal-base")
         healNode.position = rockMap.centerOfTile(atColumn: 27, row: 26)
         healNode.size = CGSize(width: 64, height: 64)
         healNode.texture?.filteringMode = .nearest
         healNode.lightingBitMask = 0b0001
+        
+        let healCrosses = SKSpriteNode(imageNamed: "heal-base")
+        let cross0 = SKTexture.init(imageNamed: "heal-cross1")
+        let cross1 = SKTexture.init(imageNamed: "heal-cross2")
+        let cross2 = SKTexture.init(imageNamed: "heal-cross3")
+        let cross3 = SKTexture.init(imageNamed: "heal-cross4")
+        let healTextures: [SKTexture] = [cross0, cross1, cross2, cross3]
+        cross0.filteringMode = .nearest
+        cross1.filteringMode = .nearest
+        cross2.filteringMode = .nearest
+        cross3.filteringMode = .nearest
+                   
+        healCrosses.position = rockMap.centerOfTile(atColumn: 27, row: 26)
+        healCrosses.size = CGSize(width: 64, height: 64)
+        healCrosses.texture?.filteringMode = .nearest
+        healCrosses.lightingBitMask = 0b0001
+        healCrosses.zPosition = 1501
+                   
+        let animation = SKAction.animate(with: healTextures, timePerFrame: 0.2)
+        healCrosses.run(SKAction.repeatForever(animation))
+        self.addChild(healCrosses)
         
         self.addChild(healNode)
     }
@@ -1099,7 +1135,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:-200, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -70, priceShow: "Earn 70 Souls - Kill it for 1.000", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: healPic, price: 100, priceShow: "Spend 100", name: "Healing Spot", soldOut: false, amount:1) ,SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price: -200, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50 Souls - Kill each for 300", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
         
         
         coinCounter = 10000
@@ -1147,7 +1183,6 @@ class GameScene: SKScene {
         coinSpawn()
         hearts()
         tutorial()
-        buyHeal()
         
         shop = SKSpriteNode(imageNamed: "shop")
         shop.position = .init(x: 160, y: 370)
