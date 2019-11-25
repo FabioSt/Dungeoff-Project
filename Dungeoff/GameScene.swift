@@ -100,6 +100,13 @@ class GameScene: SKScene {
                 dragonSpawn()
             }
         }
+        
+        //HEALT SPOT
+         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 27, row: 26).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 27, row: 26).y.rounded() {
+            heroNode.health = 3
+            heartContainers.texture = SKTexture(imageNamed: "3of3")
+               }
+        
         // TRAP Appears
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 22).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 22).y.rounded() {
             if !trapChecker {
@@ -282,6 +289,10 @@ class GameScene: SKScene {
             }
         }
         
+        if node === self.heroNode {
+            
+               }
+        
         if node === self.hint1 {
             posCenter.removeAllChildren()
             posCenter.addChild(hint2)
@@ -442,6 +453,17 @@ class GameScene: SKScene {
         }
     }
     
+    func buyHeal() {
+        
+        let healNode = SKSpriteNode(imageNamed: "chest")
+        healNode.position = rockMap.centerOfTile(atColumn: 27, row: 26)
+        healNode.size = CGSize(width: 64, height: 64)
+        healNode.texture?.filteringMode = .nearest
+        healNode.lightingBitMask = 0b0001
+        
+        self.addChild(healNode)
+    }
+    
     func buyChests() {
         chestChecker = true
         let chestNode = SKSpriteNode(imageNamed: "chest")
@@ -468,7 +490,7 @@ class GameScene: SKScene {
     
     func checkHP(){
         if lifeBar.size.width == .zero {
-            coinCounter += 1000
+            coinCounter += 300
             lifeBar.removeFromParent()
             skeletonNode.run(.fadeAlpha(to: 0, duration: 0.5), completion: {
                 self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
@@ -477,7 +499,7 @@ class GameScene: SKScene {
             //            skeletonNode.removeFromParent()
             return
         } else if hitCounter >= skeletonHP {
-            coinCounter += 1000
+            coinCounter += 300
             lifeBar.removeFromParent()
             skeletonNode.run(.fadeAlpha(to: 0, duration: 0.5), completion: {
                 self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
@@ -1080,7 +1102,7 @@ class GameScene: SKScene {
         shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:-200, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -70, priceShow: "Earn 70 Souls - Kill it for 1.000", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
         
         
-        coinCounter = 0
+        coinCounter = 10000
         
         backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
         addSwipe()
@@ -1125,6 +1147,7 @@ class GameScene: SKScene {
         coinSpawn()
         hearts()
         tutorial()
+        buyHeal()
         
         shop = SKSpriteNode(imageNamed: "shop")
         shop.position = .init(x: 160, y: 370)
