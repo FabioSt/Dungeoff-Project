@@ -45,6 +45,7 @@ class GameScene: SKScene {
     var chestChecker = false // check if dragon should be spawn
     var dragonChecker = false
     var trapChecker = false
+    var devilChecker = false
     var tutChecker = false
     
     let posCenter = SKSpriteNode()
@@ -99,13 +100,17 @@ class GameScene: SKScene {
                 dragonSpawn()
             }
         }
-        
+        // TRAP Appears
         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 16, row: 22).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 16, row: 22).y.rounded() {
-            while (trapChecker == false){
-                buyTraps()
-                bump(node: heroNode, arrivingDirection: CGVector(dx: 0, dy: -rockMap.tileSize.height))
-                devilSpawn()
-                devilNode.run(.playSoundFileNamed("laugh", waitForCompletion: true))
+            if !trapChecker {
+                if trapsBought {
+                    buyTraps()
+                    bump(node: heroNode, arrivingDirection: CGVector(dx: 0, dy: -rockMap.tileSize.height))
+                }
+                while !devilChecker {
+                    devilSpawn()
+                    devilNode.run(.playSoundFileNamed("laugh", waitForCompletion: true))
+                }
             }
         }
         
@@ -589,7 +594,7 @@ class GameScene: SKScene {
         // Load the first frame as initialization
         devilNode.size = CGSize(width: 64, height: 64)
         devilNode.texture?.filteringMode = .nearest
-        devilNode.zPosition = 999
+        devilNode.zPosition = 666
         devilNode.position = rockMap.centerOfTile(atColumn: 16 , row: 25)
         devilNode.lightingBitMask = 0b0001
         
@@ -625,6 +630,7 @@ class GameScene: SKScene {
         devilNode.run(SKAction.repeatForever(animation))
         
         self.addChild(devilNode)
+        devilChecker = true
     }
     
     func heroSpawn(){
@@ -1044,10 +1050,10 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:100, priceShow: "Earn 200", name: "Traps", soldOut: true, amount:0) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -70, priceShow: "Earn 70 Souls - Kill it for 1.000", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+        shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price:100, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -70, priceShow: "Earn 70 Souls - Kill it for 1.000", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
         
-        coinCounter = 0
+        coinCounter = 1000
         
         backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
         addSwipe()
