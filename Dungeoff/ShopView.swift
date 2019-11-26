@@ -16,6 +16,7 @@ let doorPic = scaleDown(image: UIImage(named: "door-m")!, withSize: CGSize(width
 let torchPic = scaleDown(image: UIImage(named: "torch-m")!, withSize: CGSize(width: 50, height: 50))
 let chestPic = scaleDown(image: UIImage(named: "chest-m")!, withSize: CGSize(width: 50, height: 50))
 let trapsPic = scaleDown(image: UIImage(named: "traps-m")!, withSize: CGSize(width: 50, height: 50))
+let blobsPic = scaleDown(image: UIImage(named: "blobs-m")!, withSize: CGSize(width: 50, height: 50))
 let crystalPic = scaleDown(image: UIImage(named: "crystal-m")!, withSize: CGSize(width: 50, height: 50))
 let healPic = scaleDown(image: UIImage(named: "heal-m")!, withSize: CGSize(width: 50, height: 50))
 var skeletonBought = false
@@ -31,7 +32,7 @@ func scaleDown(image: UIImage, withSize: CGSize) -> UIImage {
 }
 
 // EVERY TIME YOU CHANGE THIS, CHANGE ALSO IN GAME SCENE
-var shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: healPic, price: 100, priceShow: "Spend 100", name: "Healing Spot", soldOut: false, amount:1) ,SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price: -200, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50 Souls - Kill each for 300", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+var shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: healPic, price: 100, priceShow: "Spend 100", name: "Healing Spot", soldOut: false, amount:1) ,SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price: -200, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: blobsPic, price: -50, priceShow: "Earn 50 Souls - Kill each for 200", name: "Slimes", soldOut: false, amount: 1), SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50 Souls - Kill each for 600", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
 
 let sectionList = ["The Soul Keeper","Environment","Enemies","Weapons"]
 
@@ -136,7 +137,11 @@ class ShopView: UITableView,UITableViewDelegate,UITableViewDataSource{
         } else if shopList[indexPath.section][indexPath.row].name == "Healing Spot" {
             sceneDung.buyHeal()
             shopList[indexPath.section][indexPath.row].amount = 0
+        } else if shopList[indexPath.section][indexPath.row].name == "Slimes" {
+            sceneDung.buySlimes()
+            shopList[indexPath.section][indexPath.row].amount = 0
         }
+        
         
         
         coinCounter -= shopList[indexPath.section][indexPath.row].price
