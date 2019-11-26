@@ -18,7 +18,7 @@ var moveVector = CGVector(dx: 0, dy: 0)
 var skeletonBumpPosition = CGPoint.zero
 let tileSet = rockMap.tileSet
 
-var coinCounter:Int = 10000
+var coinCounter:Int = 0
 
 class GameScene: SKScene {
     
@@ -106,7 +106,7 @@ class GameScene: SKScene {
         }
         
         //HEALT SPOT
-         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 27, row: 26).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 27, row: 26).y.rounded() {
+         if heroNode.position.x.rounded() == rockMap.centerOfTile(atColumn: 34, row: 24).x.rounded() && heroNode.position.y.rounded() == rockMap.centerOfTile(atColumn: 34, row: 24).y.rounded() {
             heroNode.health = 3
             heartContainers.texture = SKTexture(imageNamed: "3of3")
                }
@@ -507,7 +507,7 @@ class GameScene: SKScene {
     func buyHeal() {
         
         let healNode = SKSpriteNode(imageNamed: "heal-base")
-        healNode.position = rockMap.centerOfTile(atColumn: 27, row: 26)
+        healNode.position = rockMap.centerOfTile(atColumn: 34, row: 24)
         healNode.size = CGSize(width: 64, height: 64)
         healNode.texture?.filteringMode = .nearest
         healNode.lightingBitMask = 0b0001
@@ -523,7 +523,7 @@ class GameScene: SKScene {
         cross2.filteringMode = .nearest
         cross3.filteringMode = .nearest
                    
-        healCrosses.position = rockMap.centerOfTile(atColumn: 27, row: 26)
+        healCrosses.position = rockMap.centerOfTile(atColumn: 34, row: 24)
         healCrosses.size = CGSize(width: 64, height: 64)
         healCrosses.texture?.filteringMode = .nearest
         healCrosses.lightingBitMask = 0b0001
@@ -562,7 +562,7 @@ class GameScene: SKScene {
     
     func checkHP(){
         if lifeBar.size.width == .zero {
-            coinCounter += 600
+            coinCounter += 1000
             lifeBar.removeFromParent()
             skeletonNode.run(.fadeAlpha(to: 0, duration: 0.5), completion: {
                 self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
@@ -571,7 +571,7 @@ class GameScene: SKScene {
             //            skeletonNode.removeFromParent()
             return
         } else if hitCounter >= skeletonHP {
-            coinCounter += 600
+            coinCounter += 1000
             lifeBar.removeFromParent()
             skeletonNode.run(.fadeAlpha(to: 0, duration: 0.5), completion: {
                 self.skeletonNode.position = rockMap.centerOfTile(atColumn: 0, row: 0)
@@ -1169,10 +1169,9 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-       shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: healPic, price: 100, priceShow: "Spend 100", name: "Healing Spot", soldOut: false, amount:1) ,SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price: -200, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: blobsPic, price: -50, priceShow: "Earn 50 Souls - Kill each for 200", name: "Slimes", soldOut: false, amount: 1), SoldProduct(image: skeletonPic, price: -50, priceShow: "Earn 50 Souls - Kill each for 600", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
+       shopList = [[],[SoldProduct(image: crystalPic, price: 10, priceShow:"Spend 10", name: "Light Crystal", soldOut: false, amount: 1), SoldProduct(image: healPic, price: 100, priceShow: "Spend 100", name: "Healing Spot", soldOut: false, amount:1) ,SoldProduct(image: doorPic, price: 100, priceShow: "Spend 100", name: "Doors", soldOut: false, amount: 1), SoldProduct(image: trapsPic, price: -200, priceShow: "Earn 200", name: "Traps", soldOut: false, amount:1) ,SoldProduct(image: torchPic, price:100, priceShow:"Spend 100", name:"Torches", soldOut: false, amount:1), SoldProduct(image: chestPic, price: 1000, priceShow:"Spend 1.000", name:"Chests", soldOut: false, amount:1)],[SoldProduct(image: blobsPic, price: -50, priceShow: "Earn 50 Souls - Kill each for 200", name: "Slimes", soldOut: false, amount: 0), SoldProduct(image: skeletonPic, price: -100, priceShow: "Earn 100 Souls - Kill each for 1.000", name: "Skeletons", soldOut: false, amount: 1)], [SoldProduct(image: nil, price: 0, priceShow: "0", name: "Coming Soon", soldOut: true, amount: 0)]]
         
-        
-        coinCounter = 10000
+        coinCounter = 0
         
         
         backgroundColor = SKColor.init(red: 0, green: 0, blue: 0, alpha: 1.0)
